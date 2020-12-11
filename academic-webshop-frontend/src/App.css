@@ -1,0 +1,51 @@
+html {
+    background-color: black;
+    color: deeppink;
+}
+
+.App {
+  text-align: center;
+}
+/**/
+.App-header {
+
+  height: 8vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+a {
+  color: #61dafb;
+}
+
+a:visited {
+    color: violet;
+}
+
+.App-main {
+    height: 90vh;
+}
+
+.App-footer {
+    font-size: 6px;
+    height: 2vh;
+}
+
+.landing-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 5vh;
+}
+
+.landing-page-container > section {
+    color: magenta;
+    border: 2px solid deeppink;
+    padding: 10px;
+    min-height: 20vh;
+    max-height: 25vh;
+}

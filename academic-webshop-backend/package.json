@@ -1,0 +1,11 @@
+{
+  "name": "academic-webshop",
+  "version": "1.0.0",
+  "description": "Repository for the Academy of Turku Web Technologies project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "banaanihillo",
+  "license": "MIT"
+}
