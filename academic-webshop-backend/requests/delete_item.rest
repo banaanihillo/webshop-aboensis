@@ -1,1 +1,1 @@
-DELETE http://localhost:3001/items/definitelynotbanana
+DELETE http://localhost:3001/items/5fd4df45b9252209bcedcf0d
