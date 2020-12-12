@@ -1,0 +1,6 @@
+PATCH http://localhost:3001/items/5fd4e1573c8cd12634a3b7df
+Content-Type: Application/json
+
+{
+    "price": 25
+}
