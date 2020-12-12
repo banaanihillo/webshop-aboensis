@@ -1,33 +1,47 @@
 import React from "react"
 import {Link} from "react-router-dom"
 
-const ItemList = () => {
-    const listOfItems = /*get from the server*/[]
+const ItemList = (props) => {
+    const {termsAccepted, acceptTerms, itemsForSale} = props
 
-    if (listOfItems.length < 1) {
+    if (!termsAccepted) {
         return (
             <div>
-                Everything has been sold out.
+                Looks like you have not accepted the legal agreement yet.
                 <br />
-                <Link to="/"> Back to home page </Link>
+                By clicking below, you agree to the terms and conditions.
+                <br />
+                <button onClick = {() => {acceptTerms(true)}}>
+                    Agree
+                </button>
             </div>
         )
     } else {
-        return (
-            <div>
-                <ul>
-                    {listOfItems.map(item => {
-                        return (
-                            <li key = {item.id}>
-                                {item.name} - {item.price}
-                            </li>
-                        )
-                    })}
-                </ul>
-                <br />
-                <Link to="/"> Back to home page </Link>
-            </div>
-        )
+        if (itemsForSale.length < 1) {
+            return (
+                <div>
+                    Everything has been sold out.
+                    <br />
+                    <Link to="/"> Back to home page </Link>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <ul>
+                        {itemsForSale.map(item => {
+                            return (
+                                <li key = {item.id}>
+                                    {item.name} - {item.price}
+                                </li>
+                            )
+                        })}
+                    </ul>
+                    <br />
+                    <Link to="/"> Back to home page </Link>
+                </div>
+            )
+        }
     }
 }
 

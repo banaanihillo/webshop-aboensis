@@ -49,3 +49,8 @@ a:visited {
     min-height: 20vh;
     max-height: 25vh;
 }
+
+li {
+    list-style: none;
+    padding: 1em;
+}

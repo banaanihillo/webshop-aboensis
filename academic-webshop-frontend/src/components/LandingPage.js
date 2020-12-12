@@ -1,9 +1,8 @@
-import React, {useState} from "react"
+import React from "react"
 import {Link} from "react-router-dom"
 
-const LandingPage = () => {
-    const itemsForSale = []
-    const [termsAccepted, acceptTerms] = useState(false)
+const LandingPage = (props) => {
+    const {termsAccepted, acceptTerms, itemsForSale} = props
 
     return (
         <div className = "landing-page-container">

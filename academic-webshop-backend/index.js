@@ -1,7 +1,10 @@
 const express = require("express")
+const {v4: uniqueIdentificator} = require("uuid")
+const cors = require("cors")
 const app = express()
 app.use(express.json())
-const {v4: uniqueIdentificator} = require("uuid")
+app.use(cors())
+app.use(express.static("build"))
 
 let dummyItems = [
     {
