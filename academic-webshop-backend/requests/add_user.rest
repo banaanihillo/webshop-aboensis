@@ -2,7 +2,7 @@ POST http://localhost:3001/users
 Content-Type: application/json
 
 {
-    "userName": "bananashillos",
-    "electronicMail": "bananas@hillos.io",
+    "userName": "hillobanaani",
+    "electronicMail": "hillo@banaani.io",
     "password": "correctHorseBatteryStaple"
 }

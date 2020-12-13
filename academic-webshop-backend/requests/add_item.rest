@@ -2,6 +2,7 @@ POST http://localhost:3001/items
 Content-Type: application/json
 
 {
-    "name": "Monetary Value",
-    "price": 20
+    "name": "Banana Hillo",
+    "price": 1,
+    "userid": "5fd60c3ca3a67e19b81dfdbb"
 }

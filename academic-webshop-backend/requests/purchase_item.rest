@@ -1,0 +1,7 @@
+PATCH http://localhost:3001/users/5fd60c2ca3a67e19b81dfdba
+Content-Type: application/json
+
+{
+    "itemid": "5fd60c58a3a67e19b81dfdbc",
+    "sellerid": "5fd60c3ca3a67e19b81dfdbb"
+}

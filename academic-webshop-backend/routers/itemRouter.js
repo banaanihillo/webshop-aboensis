@@ -1,5 +1,6 @@
 const itemRouter = require("express").Router()
 const Item = require("../models/Item")
+const User = require("../models/User")
 
 itemRouter.get("/ping", (_request, response) => {
     response.send("Pong")
@@ -17,13 +18,24 @@ itemRouter.post("/", async (request, response) => {
         })
     }
 
+    const user = await User.findById(request.body.userid)
+    if (!user) {
+        return response.status(400).json({
+            error: `${request.body.userid} is not an existing user.`
+        })
+    }
+
     const newItem =  new Item({
         name: request.body.name,
         price: request.body.price,
-        date: new Date()
+        date: new Date(),
+        seller: user._id
     })
-    await newItem.save()
-    response.json(newItem)
+
+    const postedItem = await newItem.save()
+    user.itemsForSale = user.itemsForSale.concat(postedItem._id)
+    await user.save()
+    response.json(postedItem)
 })
 
 itemRouter.get("/:id", async (request, response) => {

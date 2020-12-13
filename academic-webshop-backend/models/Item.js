@@ -10,7 +10,11 @@ const itemSchema = new mongoose.Schema({
         required: true
     },
     date: Date,
-    user: {
+    seller: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    buyer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }

@@ -13,7 +13,19 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    items: [
+    itemsForSale: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Item"
+        }
+    ],
+    itemsSold: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Item"
+        }
+    ],
+    itemsBought: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Item"
