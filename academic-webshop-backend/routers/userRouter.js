@@ -1,6 +1,7 @@
 const userRouter = require("express").Router()
 const bcrypt = require("bcrypt")
 const User = require("../models/User")
+const Item = require("../models/Item")
 
 userRouter.post("/", async (request, response) => {
     const saltRounds = 10
@@ -81,9 +82,19 @@ userRouter.patch("/:id", async (request, response) => {
             {new: true}
         )
 
+        const updatedItemBuyer = {
+            buyer: request.params.id
+        }
+        const updatedItem = await Item.findByIdAndUpdate(
+            request.body.itemid,
+            updatedItemBuyer,
+            {new: true}
+        )
+
         response.json({
             updatedBuyer,
-            updatedSeller
+            updatedSeller,
+            updatedItem
         })
         
     } catch (error) {

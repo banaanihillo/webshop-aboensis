@@ -1,7 +1,7 @@
-PATCH http://localhost:3001/users/5fd60c2ca3a67e19b81dfdba
+PATCH http://localhost:3001/users/5fd6137fb335d81174628682
 Content-Type: application/json
 
 {
-    "itemid": "5fd60c58a3a67e19b81dfdbc",
-    "sellerid": "5fd60c3ca3a67e19b81dfdbb"
+    "itemid": "5fd613a6b335d81174628684",
+    "sellerid": "5fd6138fb335d81174628683"
 }

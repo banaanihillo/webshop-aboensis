@@ -40,7 +40,11 @@ itemRouter.post("/", async (request, response) => {
 
 itemRouter.get("/:id", async (request, response) => {
     try {
-        const matchedItem = await Item.findById(request.params.id)
+        const matchedItem = await Item
+            .findById(request.params.id)
+            .populate("seller")
+            .populate("buyer")
+        
         if (!matchedItem) {
             return response.status(404).send("That id does not exist.")
         } else {
