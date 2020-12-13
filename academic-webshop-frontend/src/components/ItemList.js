@@ -1,5 +1,5 @@
 import React from "react"
-import {Link} from "react-router-dom"
+//
 
 const ItemList = (props) => {
     const {termsAccepted, acceptTerms, itemsForSale} = props
@@ -21,8 +21,7 @@ const ItemList = (props) => {
             return (
                 <div>
                     Everything has been sold out.
-                    <br />
-                    <Link to="/"> Back to home page </Link>
+
                 </div>
             )
         } else {
@@ -37,8 +36,7 @@ const ItemList = (props) => {
                             )
                         })}
                     </ul>
-                    <br />
-                    <Link to="/"> Back to home page </Link>
+
                 </div>
             )
         }

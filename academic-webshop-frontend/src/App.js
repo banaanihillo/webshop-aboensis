@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from "react"
 import LandingPage from "./components/LandingPage"
 import ItemList from "./components/ItemList"
+import SignUp from "./components/SignUp"
+import LogIn from "./components/LogIn"
 import './App.css';
-import {BrowserRouter, Switch, Route} from "react-router-dom"
+import {BrowserRouter, Switch, Route, Link} from "react-router-dom"
 import {getAllItems} from "./services/itemService"
 
 const App = () => {
@@ -21,7 +23,13 @@ const App = () => {
         <BrowserRouter>
             <div className="App">
                 <header className="App-header">
-                    <h1> Welcome to Academic Webshop! </h1>
+                    <h1> Academic Webshop </h1>
+                    <span className = "search-bar">
+                        Search lorem here ipsum placeholder
+                    </span>
+                    <Link to="/"> Home </Link>
+                    <Link to="/login"> Log in </Link>
+                    <Link to="/signup"> Sign up </Link>
                 </header>
 
                 <main className="App-main">
@@ -32,6 +40,12 @@ const App = () => {
                                 acceptTerms = {acceptTerms}
                                 itemsForSale = {itemsForSale}
                             />
+                        </Route>
+                        <Route path="/login">
+                            <LogIn />
+                        </Route>
+                        <Route path="/signup">
+                            <SignUp />
                         </Route>
                         <Route path="/">
                             <LandingPage
