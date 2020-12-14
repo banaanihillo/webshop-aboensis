@@ -4,6 +4,7 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const itemRouter = require("./routers/itemRouter")
 const userRouter = require("./routers/userRouter")
+const loginRouter = require("./routers/loginRouter")
 const app = express()
 app.use(express.json())
 app.use(cors())
@@ -25,6 +26,7 @@ mongoose
 
 app.use("/items", itemRouter)
 app.use("/users", userRouter)
+app.use("/login", loginRouter)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {

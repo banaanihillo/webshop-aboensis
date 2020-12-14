@@ -1,8 +1,8 @@
 POST http://localhost:3001/items
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImhpbGxvU2lwdWxpIiwiaWQiOiI1ZmQ2M2JkMzM1NjRmNDE4OThjZGU4ZGIiLCJpYXQiOjE2MDc5NTE3OTh9.QZyPo4oLZcFXLNGfiT3etgeDME_3OdTVMWGljXIYxIg
 
 {
-    "name": "Banana Terttu",
-    "price": 3,
-    "userid": "5fd6138fb335d81174628683"
+    "name": "Special Bananterttu",
+    "price": 5
 }

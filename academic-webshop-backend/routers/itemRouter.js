@@ -1,6 +1,7 @@
 const itemRouter = require("express").Router()
 const Item = require("../models/Item")
 const User = require("../models/User")
+const jsonWebToken = require("jsonwebtoken")
 
 itemRouter.get("/ping", (_request, response) => {
     response.send("Pong")
@@ -11,6 +12,19 @@ itemRouter.get("/", async (_request, response) => {
     response.json(items)
 })
 
+const getAuthorization = (request) => {
+    const authorization = request.get("authorization")
+    if (
+        authorization
+        && authorization.toLowerCase().startsWith("bearer ")
+    ) {
+        return authorization.substring(7)
+    } else {
+        console.error("Unauthorized - no authorization header found.")
+        return
+    }
+}
+
 itemRouter.post("/", async (request, response) => {
     if (!request.body.name || !request.body.price) {
         return response.status(400).json({
@@ -18,12 +32,23 @@ itemRouter.post("/", async (request, response) => {
         })
     }
 
-    const user = await User.findById(request.body.userid)
-    if (!user) {
-        return response.status(400).json({
-            error: `${request.body.userid} is not an existing user.`
+    const token = getAuthorization(request)
+    if (!token) {
+        return response.status(401).json({
+            error: "No token found."
         })
     }
+
+    const decodedToken = jsonWebToken.verify(
+        token,
+        process.env.SECRET
+    )
+    if (!decodedToken) {
+        return response.status(401).json({
+            error: "Invalid token."
+        })
+    }
+    const user = await User.findById(decodedToken.id)
 
     const newItem =  new Item({
         name: request.body.name,
@@ -42,8 +67,8 @@ itemRouter.get("/:id", async (request, response) => {
     try {
         const matchedItem = await Item
             .findById(request.params.id)
-            .populate("seller")
-            .populate("buyer")
+            .populate("seller", {userName: 1, id: 1})
+            .populate("buyer", {userName: 1, id: 1})
         
         if (!matchedItem) {
             return response.status(404).send("That id does not exist.")

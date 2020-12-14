@@ -8,8 +8,8 @@ const getAllItems = async () => {
 
 const createNewItem = async (newItem) => {
     const response = await axios.post(address, newItem)
-    console.log("Posting a new item")
-    console.log(response)
+    //the backend now requires an authorization header,
+    //so that should be part of the arguments here
     return response.data
 }
 

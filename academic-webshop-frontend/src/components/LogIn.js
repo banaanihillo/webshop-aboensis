@@ -1,13 +1,22 @@
 import React, {useState} from "react"
+import {logIn} from "../services/loginService"
+import {useHistory} from "react-router-dom"
 
 const LogIn = () => {
+    const history = useHistory()
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        //handleLogin here
-        //also some kind of notification whether successful or not
+        logIn({
+            userName,
+            password
+        })
+        //show a notification of sorts here
+        //also something when the log-in is unsuccessful
+        //and add the token into local storage or such
+        history.push("/items")
     }
     return (
         <div>
