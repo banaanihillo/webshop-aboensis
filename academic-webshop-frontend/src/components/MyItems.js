@@ -17,6 +17,9 @@ const MyItems = (props) => {
     })
 
     useEffect(() => {
+        if (!userid) {
+            return "No data to fetch yet"
+        }
         getUser(userid)
             .then((responseData) => {
                 setMyItems({
@@ -25,7 +28,8 @@ const MyItems = (props) => {
                     "Items bought": responseData.itemsBought
                 })
             })
-    }, [userid])
+    },
+    [userid])
 
     if (!userid) {
         return (

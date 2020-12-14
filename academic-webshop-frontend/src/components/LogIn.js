@@ -1,5 +1,6 @@
 import React, {useState} from "react"
 import {logIn} from "../services/loginService"
+import {setToken} from "../services/itemService"
 import {useHistory} from "react-router-dom"
 
 const LogIn = (props) => {
@@ -19,8 +20,12 @@ const LogIn = (props) => {
                 console.error(`The user ${userName} was not found.`)
             } else {
                 setLoggedIn(user)
+                setToken(user.token)
                 //show a notification of sorts here
-                //and add the token into local storage or such
+                window.localStorage.setItem(
+                    "currentlyLoggedIn",
+                    JSON.stringify(user)
+                )
                 history.push("/items")
             }
         } catch (error) {

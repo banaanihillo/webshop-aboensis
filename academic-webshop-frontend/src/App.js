@@ -6,7 +6,7 @@ import LogIn from "./components/LogIn"
 import MyItems from "./components/MyItems"
 import './App.css';
 import {BrowserRouter, Switch, Route, Link} from "react-router-dom"
-import {getAllItems} from "./services/itemService"
+import {getAllItems, setToken} from "./services/itemService"
 
 const App = () => {
     const [termsAccepted, acceptTerms] = useState(false)
@@ -23,6 +23,18 @@ const App = () => {
     },
     [])
 
+    useEffect(() => {
+        const currentlyLoggedIn = window.localStorage.getItem(
+            "currentlyLoggedIn"
+        )
+        if (currentlyLoggedIn) {
+            const user = JSON.parse(currentlyLoggedIn)
+            setLoggedIn(user)
+            setToken(user.token)
+        }
+    },
+    [])
+
     return (
         <BrowserRouter>
             <div className="App">
@@ -35,7 +47,19 @@ const App = () => {
                     {loggedIn.id
                         ? <span>
                             <Link to="/my-items"> My items </Link>
-                            Cart and log-out here
+                            <Link to="/" onClick = {() => {
+                                window.localStorage.removeItem(
+                                    "currentlyLoggedIn"
+                                )
+                                setLoggedIn({
+                                    userName: null,
+                                    id: null
+                                })
+                                setToken(null)
+                                //and a notification, perhaps
+                            }}>
+                                Log out
+                            </Link>
                         </span>
                         : <span>
                             <Link to="/login"> Log in </Link>
