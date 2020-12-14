@@ -3,6 +3,7 @@ import LandingPage from "./components/LandingPage"
 import ItemList from "./components/ItemList"
 import SignUp from "./components/SignUp"
 import LogIn from "./components/LogIn"
+import MyItems from "./components/MyItems"
 import './App.css';
 import {BrowserRouter, Switch, Route, Link} from "react-router-dom"
 import {getAllItems} from "./services/itemService"
@@ -10,6 +11,9 @@ import {getAllItems} from "./services/itemService"
 const App = () => {
     const [termsAccepted, acceptTerms] = useState(false)
     const [itemsForSale, setItemsForSale] = useState([])
+    const [loggedIn, setLoggedIn] = useState({
+        id: null
+    })
 
     useEffect(() => {
         getAllItems()
@@ -28,21 +32,35 @@ const App = () => {
                         Search lorem here ipsum placeholder
                     </span>
                     <Link to="/"> Home </Link>
-                    <Link to="/login"> Log in </Link>
-                    <Link to="/signup"> Sign up </Link>
+                    {loggedIn.id
+                        ? <span>
+                            <Link to="/my-items"> My items </Link>
+                            Cart and log-out here
+                        </span>
+                        : <span>
+                            <Link to="/login"> Log in </Link>
+                            <Link to="/signup"> Sign up </Link>
+                        </span>
+                    }
                 </header>
 
                 <main className="App-main">
                     <Switch>
+                        <Route path="/my-items">
+                            <MyItems
+                                userid = {loggedIn.id}
+                            />
+                        </Route>
                         <Route path="/items">
                             <ItemList
                                 termsAccepted = {termsAccepted}
                                 acceptTerms = {acceptTerms}
                                 itemsForSale = {itemsForSale}
+                                loggedIn = {loggedIn}
                             />
                         </Route>
                         <Route path="/login">
-                            <LogIn />
+                            <LogIn setLoggedIn = {setLoggedIn} />
                         </Route>
                         <Route path="/signup">
                             <SignUp />

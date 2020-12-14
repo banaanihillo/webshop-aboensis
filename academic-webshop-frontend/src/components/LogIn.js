@@ -2,21 +2,30 @@ import React, {useState} from "react"
 import {logIn} from "../services/loginService"
 import {useHistory} from "react-router-dom"
 
-const LogIn = () => {
+const LogIn = (props) => {
+    const {setLoggedIn} = props
     const history = useHistory()
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        logIn({
-            userName,
-            password
-        })
-        //show a notification of sorts here
-        //also something when the log-in is unsuccessful
-        //and add the token into local storage or such
-        history.push("/items")
+        try {
+            const user = await logIn({
+                userName,
+                password
+            })
+            if (!user) {
+                console.error(`The user ${userName} was not found.`)
+            } else {
+                setLoggedIn(user)
+                //show a notification of sorts here
+                //and add the token into local storage or such
+                history.push("/items")
+            }
+        } catch (error) {
+            console.error("Unauthorized - incorrect credentials.")
+        }
     }
     return (
         <div>

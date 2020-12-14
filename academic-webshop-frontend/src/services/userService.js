@@ -8,6 +8,12 @@ const createNewUser = async (newUser) => {
     return response.data
 }
 
+const getUser = async (userid) => {
+    const response = await axios.get(`${address}/${userid}`)
+    return response.data
+}
+
 export {
-    createNewUser
+    createNewUser,
+    getUser
 }

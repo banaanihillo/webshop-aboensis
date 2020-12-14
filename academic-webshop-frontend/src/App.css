@@ -91,3 +91,8 @@ form > button {
     background-color: limegreen;
     font-weight: 600;
 }
+
+.my-items-container {
+    display: flex;
+    justify-content: space-evenly;
+}
