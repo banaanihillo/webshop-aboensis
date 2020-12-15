@@ -35,37 +35,51 @@ const App = () => {
     },
     [])
 
+    const ConditionalLinks = () => {
+        if (loggedIn.id) {
+            return (
+                <span className = "App-header-links">
+                    <Link to="/"> 127.0.0.1 </Link>
+                    <Link to="/my-items"> My items </Link>
+                    <Link to="/" onClick={() => {
+                        window.localStorage.removeItem(
+                            "currentlyLoggedIn"
+                        )
+                        setLoggedIn({
+                            userName: null,
+                            id: null
+                        })
+                        setToken(null)
+                        //and a notification, perhaps
+                    }}>
+                        Log out
+                    </Link>
+                </span>
+            )
+        } else {
+            return (
+                <span className = "App-header-links">
+                    <Link to="/"> Home </Link>
+                    <Link to="/login"> Log in </Link>
+                    <Link to="/signup"> Sign up </Link>
+                </span>
+            )
+        }
+    }
+
     return (
         <BrowserRouter>
             <div className="App">
+                {/*
+                some kind of modal for the cart
+                and add the modal toggle button into the header
+                */}
                 <header className="App-header">
                     <h1> Academic Webshop </h1>
-                    <span className = "search-bar">
+                    <span className = "App-header-search-bar">
                         Search lorem here ipsum placeholder
                     </span>
-                    <Link to="/"> Home </Link>
-                    {loggedIn.id
-                        ? <span>
-                            <Link to="/my-items"> My items </Link>
-                            <Link to="/" onClick = {() => {
-                                window.localStorage.removeItem(
-                                    "currentlyLoggedIn"
-                                )
-                                setLoggedIn({
-                                    userName: null,
-                                    id: null
-                                })
-                                setToken(null)
-                                //and a notification, perhaps
-                            }}>
-                                Log out
-                            </Link>
-                        </span>
-                        : <span>
-                            <Link to="/login"> Log in </Link>
-                            <Link to="/signup"> Sign up </Link>
-                        </span>
-                    }
+                    <ConditionalLinks />
                 </header>
 
                 <main className="App-main">

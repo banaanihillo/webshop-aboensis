@@ -8,10 +8,10 @@ html {
 }
 
 .App-header {
-    gap: 1vw;
+    
     height: 15vh;
     display: flex;
-    flex-direction: row;
+    flex-flow: row nowrap;
     align-items: center;
     justify-content: space-evenly;
     padding-right: 1em;
@@ -22,12 +22,41 @@ html {
     flex: 0 1 auto;
 }
 
-.App-header > .search-bar {
+.App-header-search-bar {
     flex: 1 1 auto;
 }
 
-.App-header > a {
+.App-header-links {
     flex: 0 1 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    gap: 1vmin;
+}
+
+.App-header-links a {
+    flex: 0 1 auto;
+}
+
+@media screen and (min-width: 1200px) {
+    .App-header-links {
+        flex-flow: row nowrap;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .App-header {
+        flex-flow: column nowrap;
+    }
+    .App-header > h1 {
+        margin: 0;
+    }
+    .App-header-search-bar {
+        flex: 0 1 auto;
+    }
+    .App-header-links {
+        flex-flow: row nowrap;
+    }
 }
 
 a {
@@ -39,6 +68,8 @@ a:visited {
 }
 
 .App-main {
+    margin-top: 2vh;
+    border-top: 1px solid darkmagenta;
     height: 80vh;
 }
 

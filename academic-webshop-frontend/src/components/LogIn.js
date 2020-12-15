@@ -26,7 +26,7 @@ const LogIn = (props) => {
                     "currentlyLoggedIn",
                     JSON.stringify(user)
                 )
-                history.push("/items")
+                history.push("/")
             }
         } catch (error) {
             console.error("Unauthorized - incorrect credentials.")
