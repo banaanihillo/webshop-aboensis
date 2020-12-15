@@ -7,6 +7,7 @@ import MyItems from "./components/MyItems"
 import './App.css';
 import {BrowserRouter, Switch, Route, Link} from "react-router-dom"
 import {getAllItems, setToken} from "./services/itemService"
+import cart from "./assets/cart-96x96.svg"
 
 const App = () => {
     const [termsAccepted, acceptTerms] = useState(false)
@@ -54,6 +55,16 @@ const App = () => {
                     }}>
                         Log out
                     </Link>
+                    <img
+                        src = {cart}
+                        alt = "Cart"
+                        style = {{
+                            width: "10%"
+                        }}
+                        onClick = {() => {
+                            console.log("Open or close the cart modal")
+                        }}
+                    ></img>
                 </span>
             )
         } else {
