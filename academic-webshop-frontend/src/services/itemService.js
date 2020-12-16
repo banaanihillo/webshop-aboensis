@@ -6,8 +6,8 @@ const setToken = (newToken) => {
     token = `Bearer ${newToken}`
 }
 
-const getAllItems = async () => {
-    const response = await axios.get(address)
+const getItemsForSale = async () => {
+    const response = await axios.get(`${address}/for-sale`)
     return response.data
 }
 
@@ -27,7 +27,7 @@ const getItem = async (itemid) => {
 }
 
 export {
-    getAllItems,
+    getItemsForSale,
     createNewItem,
     getItem,
     setToken

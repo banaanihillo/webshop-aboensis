@@ -82,12 +82,13 @@ userRouter.patch("/:id", async (request, response) => {
             {new: true}
         )
 
-        const updatedItemBuyer = {
-            buyer: request.params.id
+        const updatedItemProperties = {
+            buyer: request.params.id,
+            forSale: false
         }
         const updatedItem = await Item.findByIdAndUpdate(
             request.body.itemid,
-            updatedItemBuyer,
+            updatedItemProperties,
             {new: true}
         )
 

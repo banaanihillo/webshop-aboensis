@@ -34,8 +34,9 @@ const SignUp = () => {
                 </label>
                 <input
                     type = "email"
-                    id = "electronicMail"
+                    id = "electronicMailInput"
                     value = {electronicMail}
+                    required
                     onChange = {({target}) =>
                         setElectronicMail(target.value)
                     }
@@ -48,6 +49,7 @@ const SignUp = () => {
                     id = "userNameInput"
                     autoComplete = "username"
                     value = {userName}
+                    required
                     onChange = {({target}) =>
                         setUserName(target.value)
                     }
@@ -60,6 +62,7 @@ const SignUp = () => {
                     id = "passwordInput"
                     autoComplete = "new-password"
                     value = {password}
+                    required
                     onChange = {({target}) =>
                         setPassword(target.value)
                     }
@@ -74,6 +77,7 @@ const SignUp = () => {
                     id = "passwordInputAgain"
                     autoComplete = "new-password"
                     value = {passwordAgain}
+                    required
                     onChange = {({target}) =>
                         setPasswordAgain(target.value)
                     }

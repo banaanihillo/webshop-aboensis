@@ -4,20 +4,21 @@ import ItemList from "./components/ItemList"
 import SignUp from "./components/SignUp"
 import LogIn from "./components/LogIn"
 import MyItems from "./components/MyItems"
+import Cart from "./components/Cart"
 import './App.css';
 import {BrowserRouter, Switch, Route, Link} from "react-router-dom"
-import {getAllItems, setToken} from "./services/itemService"
+import {getItemsForSale, setToken} from "./services/itemService"
 import cart from "./assets/cart-96x96.svg"
 
 const App = () => {
     const [termsAccepted, acceptTerms] = useState(false)
     const [itemsForSale, setItemsForSale] = useState([])
     const [loggedIn, setLoggedIn] = useState({
-        id: null
+        _id: null
     })
 
     useEffect(() => {
-        getAllItems()
+        getItemsForSale()
             .then(responseData => {
                 setItemsForSale(responseData)
             })
@@ -37,10 +38,11 @@ const App = () => {
     [])
 
     const ConditionalLinks = () => {
-        if (loggedIn.id) {
+        if (loggedIn._id) {
             return (
                 <span className = "App-header-links">
-                    <Link to="/"> 127.0.0.1 </Link>
+                    <Link to="/"> Home </Link>
+                    <Link to="/shop"> Shop </Link>
                     <Link to="/my-items"> My items </Link>
                     <Link to="/" onClick={() => {
                         window.localStorage.removeItem(
@@ -48,29 +50,33 @@ const App = () => {
                         )
                         setLoggedIn({
                             userName: null,
-                            id: null
+                            _id: null
                         })
                         setToken(null)
                         //and a notification, perhaps
                     }}>
                         Log out
                     </Link>
-                    <img
-                        src = {cart}
-                        alt = "Cart"
-                        style = {{
-                            width: "10%"
-                        }}
-                        onClick = {() => {
-                            console.log("Open or close the cart modal")
-                        }}
-                    ></img>
+                    <Link to="/shop/cart">
+                        <img
+                            src = {cart}
+                            alt = "Cart"
+                            style = {{
+                                height: "32px",
+                                width: "32px"
+                            }}
+                            onClick = {() => {
+                                console.log("Show/hide the cart thing")
+                            }}
+                        />
+                    </Link>
                 </span>
             )
         } else {
             return (
                 <span className = "App-header-links">
                     <Link to="/"> Home </Link>
+                    <Link to="/shop"> Shop </Link>
                     <Link to="/login"> Log in </Link>
                     <Link to="/signup"> Sign up </Link>
                 </span>
@@ -81,10 +87,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <div className="App">
-                {/*
-                some kind of modal for the cart
-                and add the modal toggle button into the header
-                */}
+                
                 <header className="App-header">
                     <h1> Academic Webshop </h1>
                     <span className = "App-header-search-bar">
@@ -97,10 +100,15 @@ const App = () => {
                     <Switch>
                         <Route path="/my-items">
                             <MyItems
-                                userid = {loggedIn.id}
+                                userid = {loggedIn._id}
+                                itemsForSale = {itemsForSale}
+                                setItemsForSale = {setItemsForSale}
                             />
                         </Route>
-                        <Route path="/items">
+                        <Route path="/shop/cart">
+                            <Cart />
+                        </Route>
+                        <Route path="/shop">
                             <ItemList
                                 termsAccepted = {termsAccepted}
                                 acceptTerms = {acceptTerms}
@@ -124,11 +132,7 @@ const App = () => {
                     </Switch>
                 </main>
 
-                <footer className="App-footer">
-                    I am legally obligated to tell you:
-                    <strong> this is not a real webshop. </strong>
-                    All rights reserved.
-                </footer>
+
             </div>
         </BrowserRouter>
     );

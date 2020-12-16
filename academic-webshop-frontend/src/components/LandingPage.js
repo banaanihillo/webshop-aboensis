@@ -32,7 +32,7 @@ const LandingPage = (props) => {
                         </div>
                     :
                         <div>
-                            <Link to="/items">
+                            <Link to="/shop">
                                 Items for sale
                             </Link>
                         </div>

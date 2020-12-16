@@ -18,7 +18,7 @@ html {
     padding-left: 1em;
 }
 
-.App-header > h1 {
+.App-header h1 {
     flex: 0 1 auto;
 }
 
@@ -30,12 +30,12 @@ html {
     flex: 0 1 auto;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-evenly;
+    justify-content: space-around;
     gap: 1vmin;
 }
 
-.App-header-links a {
-    flex: 0 1 auto;
+img:hover {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1080px) {
@@ -48,8 +48,24 @@ html {
     .App-header-search-bar {
         flex: 0 1 auto;
     }
-    .App-header-links {
-        flex-flow: row nowrap;
+
+}
+
+@media screen and (max-height: 599px) {
+    .App-header {
+        height: 20vh;
+    }
+    .App-main {
+        max-height: 75vh;
+    }
+}
+
+@media screen and (max-height: 460px) {
+    .App-header {
+        height: 25vh;
+    }
+    .App-main {
+        max-height: 70vh;
     }
 }
 
@@ -67,9 +83,13 @@ a:visited {
     height: 80vh;
 }
 
-.App-footer {
-    font-size: 6px;
-    max-height: 5vh;
+.item-list-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.item-list-container li {
+    outline: 1px solid magenta;
 }
 
 .landing-page-container {
@@ -80,7 +100,7 @@ a:visited {
     height: 100%;
 }
 
-.landing-page-container > section {
+.landing-page-container section {
     color: magenta;
     border: 2px solid deeppink;
     padding: 10px;
@@ -100,16 +120,21 @@ form {
     grid-template-columns: 1fr 1fr;
 }
 
-form > label {
+form label {
     grid-column: 1 / 1;
 }
 
-form > input {
+form input,
+form textarea {
     background-color: violet;
     grid-column: 2 / 4;
 }
 
-form > button {
+button {
+    background-color: cyan;
+}
+
+form button {
     grid-column: 1 / 4;
     width: 5em;
     justify-self: center;
@@ -117,7 +142,16 @@ form > button {
     font-weight: 600;
 }
 
+.button-cancel {
+    background-color: tomato;
+}
+
 .my-items-container {
     display: flex;
     justify-content: space-evenly;
+}
+
+.my-items-container li {
+    outline: 1px solid fuchsia;
+    margin: 1em;
 }

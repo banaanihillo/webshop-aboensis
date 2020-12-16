@@ -25,14 +25,14 @@ loginRouter.post("/", async (request, response) => {
 
     const tokenUser = {
         userName: user.userName,
-        id: user._id
+        _id: user._id
     }
     const token = jsonWebToken.sign(tokenUser, process.env.SECRET)
 
     response.status(200).send({
         token,
         userName: user.userName,
-        id: user._id
+        _id: user._id
     })
 })
 

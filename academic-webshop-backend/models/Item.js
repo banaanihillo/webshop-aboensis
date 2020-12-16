@@ -9,6 +9,11 @@ const itemSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    description: String,
+    forSale: {
+        type: Boolean,
+        required: true
+    },
     date: Date,
     seller: {
         type: mongoose.Schema.Types.ObjectId,
@@ -19,13 +24,5 @@ const itemSchema = new mongoose.Schema({
         ref: "User"
     }
 })
-
-itemSchema.set("toJSON", {
-    transform: (_document, returnedObject) => {
-        returnedObject.id = returnedObject._id.toString()
-        delete returnedObject._id
-        delete returnedObject.__v
-    }
-})
-
+//
 module.exports = mongoose.model("Item", itemSchema)

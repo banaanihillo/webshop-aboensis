@@ -12,6 +12,13 @@ itemRouter.get("/", async (_request, response) => {
     response.json(items)
 })
 
+itemRouter.get("/for-sale", async (_request, response) => {
+    const items = await Item.find({
+        forSale: true
+    })
+    response.json(items)
+})
+
 const getAuthorization = (request) => {
     const authorization = request.get("authorization")
     if (
@@ -48,14 +55,17 @@ itemRouter.post("/", async (request, response) => {
             error: "Invalid token."
         })
     }
-    const user = await User.findById(decodedToken.id)
+    const user = await User.findById(decodedToken._id)
 
     const newItem =  new Item({
         name: request.body.name,
         price: request.body.price,
+        description: request.body.description,
         date: new Date(),
-        seller: user._id
+        seller: user._id,
+        forSale: true
     })
+
 
     const postedItem = await newItem.save()
     user.itemsForSale = user.itemsForSale.concat(postedItem._id)
@@ -67,8 +77,8 @@ itemRouter.get("/:id", async (request, response) => {
     try {
         const matchedItem = await Item
             .findById(request.params.id)
-            .populate("seller", {userName: 1, id: 1})
-            .populate("buyer", {userName: 1, id: 1})
+            .populate("seller", {userName: 1, _id: 1})
+            .populate("buyer", {userName: 1, _id: 1})
         
         if (!matchedItem) {
             return response.status(404).send("That id does not exist.")

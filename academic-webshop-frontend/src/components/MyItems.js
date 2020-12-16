@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react"
 import {getUser} from "../services/userService"
+import AddItemForm from "./AddItemForm"
 
 const MyItems = (props) => {
-    const {userid} = props
+    const {userid, itemsForSale, setItemsForSale} = props
 
     const [myItems, setMyItems] = useState({
         "Items for sale": [
@@ -15,6 +16,7 @@ const MyItems = (props) => {
 
         ]
     })
+    const [itemFormOpen, toggleItemForm] = useState(false)
 
     useEffect(() => {
         if (!userid) {
@@ -29,7 +31,7 @@ const MyItems = (props) => {
                 })
             })
     },
-    [userid])
+    [userid, itemsForSale])
 
     if (!userid) {
         return (
@@ -44,9 +46,10 @@ const MyItems = (props) => {
                 <span key = {key}>
                     <h2> {key} </h2>
                     {value.map(item => {
-                        return <li key = {item.id}>
+                        return <li key = {item._id}>
                             Item: {item.name} <br />
-                            Price: {item.price}
+                            Price: {item.price} <br />
+                            {item.description}
                         </li>
                     })}
                 </span>
@@ -57,6 +60,16 @@ const MyItems = (props) => {
 
     return (
         <div>
+            {!itemFormOpen
+                ? <button onClick = {() => toggleItemForm(true)}>
+                    Add an item
+                </button>
+                : <AddItemForm
+                    toggleItemForm = {toggleItemForm}
+                    itemsForSale = {itemsForSale}
+                    setItemsForSale = {setItemsForSale}
+                />
+            }
             <ul className = "my-items-container">
                 {getItems()}
             </ul>

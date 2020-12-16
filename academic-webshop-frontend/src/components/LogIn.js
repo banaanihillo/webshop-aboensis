@@ -41,6 +41,7 @@ const LogIn = (props) => {
                     type = "text"
                     id = "logInUserName"
                     value = {userName}
+                    required
                     onChange = {({target}) => {
                         setUserName(target.value)
                     }}
@@ -52,6 +53,7 @@ const LogIn = (props) => {
                     id = "logInPassword"
                     autoComplete = "on"
                     value = {password}
+                    required
                     onChange = {({target}) => {
                         setPassword(target.value)
                     }}

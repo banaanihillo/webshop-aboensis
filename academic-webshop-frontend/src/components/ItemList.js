@@ -27,7 +27,7 @@ const ItemList = (props) => {
         } else {
             return (
                 <div>
-                    {loggedIn.id
+                    {loggedIn._id
                         ? <span> Logged in: {loggedIn.userName} </span>
                         : <span>
                             You are not logged in. <br />
@@ -39,10 +39,12 @@ const ItemList = (props) => {
                     <ul className = "item-list-container">
                         {itemsForSale.map(item => {
                             return (
-                                <li key = {item.id}>
+                                <li key = {item._id}>
                                     Item: {item.name} <br />
                                     Price: {item.price} <br />
-                                    {!loggedIn.id
+                                    {item.description} <br />
+                                    Posted on {item.date} <br />
+                                    {!loggedIn._id
                                         ? null
                                         : <span> Add to cart </span>
                                     }
