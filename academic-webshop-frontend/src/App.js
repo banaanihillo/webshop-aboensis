@@ -16,14 +16,18 @@ const App = () => {
     const [loggedIn, setLoggedIn] = useState({
         _id: null
     })
+    const [itemsInCart, setItemsInCart] = useState([])
 
     useEffect(() => {
         getItemsForSale()
             .then(responseData => {
-                setItemsForSale(responseData)
+                const myItemsExcluded = responseData.filter(item => {
+                    return (item.seller !== loggedIn._id)
+                })
+                setItemsForSale(myItemsExcluded)
             })
     },
-    [])
+    [loggedIn])
 
     useEffect(() => {
         const currentlyLoggedIn = window.localStorage.getItem(
@@ -65,9 +69,7 @@ const App = () => {
                                 height: "32px",
                                 width: "32px"
                             }}
-                            onClick = {() => {
-                                console.log("Show/hide the cart thing")
-                            }}
+                            
                         />
                     </Link>
                 </span>
@@ -106,7 +108,10 @@ const App = () => {
                             />
                         </Route>
                         <Route path="/shop/cart">
-                            <Cart />
+                            <Cart
+                                itemsInCart = {itemsInCart}
+                                setItemsInCart = {setItemsInCart}
+                            />
                         </Route>
                         <Route path="/shop">
                             <ItemList
@@ -114,6 +119,8 @@ const App = () => {
                                 acceptTerms = {acceptTerms}
                                 itemsForSale = {itemsForSale}
                                 loggedIn = {loggedIn}
+                                itemsInCart = {itemsInCart}
+                                setItemsInCart = {setItemsInCart}
                             />
                         </Route>
                         <Route path="/login">

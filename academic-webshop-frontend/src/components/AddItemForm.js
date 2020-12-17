@@ -65,7 +65,12 @@ const AddItemForm = (props) => {
                     />
                     
                     <br />
-                    <button onClick = {handleSubmit}> Submit </button>
+                    <button
+                        type = "submit"
+                        onClick = {handleSubmit}
+                    >
+                        Submit
+                    </button>
                     <br />
                     <button
                         type = "button"

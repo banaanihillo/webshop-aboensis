@@ -38,6 +38,42 @@ img:hover {
     cursor: pointer;
 }
 
+ul {
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.cart-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.cart-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+}
+
+.my-items-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.my-items-container li {
+    outline: 1px solid fuchsia;
+    margin: 1em;
+}
+
+.item-list-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.item-list-container li {
+    outline: 1px solid magenta;
+}
+
 @media screen and (max-width: 1080px) {
     .App-header {
         flex-flow: column nowrap;
@@ -48,7 +84,18 @@ img:hover {
     .App-header-search-bar {
         flex: 0 1 auto;
     }
+}
 
+@media screen and (max-width: 760px) {
+    .cart-container {
+        flex-flow: column nowrap;
+    }
+    .my-items-container {
+        flex-flow: column nowrap;
+    }
+    .item-list-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media screen and (max-height: 599px) {
@@ -82,16 +129,7 @@ a:visited {
     border-top: 1px solid darkmagenta;
     height: 80vh;
 }
-
-.item-list-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.item-list-container li {
-    outline: 1px solid magenta;
-}
-
+/**/
 .landing-page-container {
     display: flex;
     flex-direction: column;
@@ -138,6 +176,9 @@ form button {
     grid-column: 1 / 4;
     width: 5em;
     justify-self: center;
+}
+
+button[type="submit"] {
     background-color: limegreen;
     font-weight: 600;
 }
@@ -145,13 +186,4 @@ form button {
 .button-cancel {
     background-color: tomato;
 }
-
-.my-items-container {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.my-items-container li {
-    outline: 1px solid fuchsia;
-    margin: 1em;
-}
+/**/

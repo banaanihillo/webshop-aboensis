@@ -2,7 +2,25 @@ import React from "react"
 import {Link} from "react-router-dom"
 
 const ItemList = (props) => {
-    const {termsAccepted, acceptTerms, itemsForSale, loggedIn} = props
+    const {
+        termsAccepted,
+        acceptTerms,
+        itemsForSale,
+        loggedIn,
+        itemsInCart,
+        setItemsInCart
+    } = props
+
+    const addToCart = (addedItem) => {
+        const alreadyInCart = itemsInCart.find(item => {
+            return (item._id === addedItem._id)
+        })
+        if (alreadyInCart) {
+            console.log("Already in your cart.")
+        } else {
+            setItemsInCart(itemsInCart.concat(addedItem))   
+        }
+    }
 
     if (!termsAccepted) {
         return (
@@ -38,18 +56,20 @@ const ItemList = (props) => {
                     }
                     <ul className = "item-list-container">
                         {itemsForSale.map(item => {
-                            return (
-                                <li key = {item._id}>
-                                    Item: {item.name} <br />
-                                    Price: {item.price} <br />
-                                    {item.description} <br />
-                                    Posted on {item.date} <br />
-                                    {!loggedIn._id
-                                        ? null
-                                        : <span> Add to cart </span>
-                                    }
-                                </li>
-                            )
+                            return <li key = {item._id}>
+                                Item: {item.name} <br />
+                                Price: {item.price} <br />
+                                {item.description} <br />
+                                Posted on {item.date} <br />
+                                {!loggedIn._id
+                                    ? null
+                                    : <button onClick = {() => {
+                                        addToCart(item)
+                                    }}>
+                                        Add to cart
+                                    </button>
+                                }
+                            </li>
                         })}
                     </ul>
 

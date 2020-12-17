@@ -84,7 +84,10 @@ const SignUp = () => {
                 />
                 <br />
 
-                <button onClick = {handleSubmit}>
+                <button
+                    type = "submit"
+                    onClick = {handleSubmit}
+                >
                     Sign up
                 </button>
             </form>

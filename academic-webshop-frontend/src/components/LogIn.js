@@ -60,7 +60,10 @@ const LogIn = (props) => {
                 />
                 <br />
 
-                <button onClick = {handleSubmit}>
+                <button
+                    onClick = {handleSubmit}
+                    type = "submit"
+                >
                     Log in
                 </button>
             </form>

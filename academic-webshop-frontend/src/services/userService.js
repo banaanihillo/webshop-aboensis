@@ -13,7 +13,14 @@ const getUser = async (userid) => {
     return response.data
 }
 
+const makeItemTransaction = async (userid) => {
+    const response = await axios.get(`${address}/${userid}`)
+    console.log(response)
+    return response.data
+}
+
 export {
     createNewUser,
-    getUser
+    getUser,
+    makeItemTransaction
 }
