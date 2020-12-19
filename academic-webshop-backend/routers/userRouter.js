@@ -1,5 +1,5 @@
 const userRouter = require("express").Router()
-const bcrypt = require("bcrypt")
+//const bcrypt = require("bcrypt")
 const User = require("../models/User")
 const Item = require("../models/Item")
 
@@ -72,16 +72,18 @@ userRouter.post("/populated-items", async (request, response) => {
 })
 
 userRouter.post("/", async (request, response) => {
+    /*
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(
         request.body.password,
         saltRounds
     )
+    */
 
     const newUser = new User({
         userName: request.body.userName,
         electronicMail: request.body.electronicMail,
-        passwordHash: passwordHash
+        passwordHash: request.body.password
     })
 
     const user = await newUser.save()
