@@ -135,6 +135,8 @@ const App = () => {
                                 termsAccepted = {termsAccepted}
                                 acceptTerms = {acceptTerms}
                                 itemsForSale = {itemsForSale}
+                                setLoggedIn = {setLoggedIn}
+                                setToken = {setToken}
                             />
                         </Route>
                     </Switch>

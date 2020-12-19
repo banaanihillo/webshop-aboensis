@@ -8,11 +8,25 @@ import {
 } from "../services/itemService"
 
 const LandingPage = (props) => {
-    const {termsAccepted, acceptTerms, itemsForSale} = props
+    const {
+        termsAccepted,
+        acceptTerms,
+        itemsForSale,
+        setLoggedIn,
+        setToken
+    } = props
 
     const [databasePopulated, setDatabasePopulated] = useState(false)
 
     const commitPopulation = async () => {
+        window.localStorage.removeItem(
+            "currentlyLoggedIn"
+        )
+        setLoggedIn({
+            userName: null,
+            _id: null
+        })
+        setToken(null)
         let usersToPopulate = [1, 2, 3, 4, 5, 6]
         usersToPopulate.forEach((value, index) => 
             usersToPopulate[index] = {

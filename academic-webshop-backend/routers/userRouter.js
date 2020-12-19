@@ -11,7 +11,7 @@ userRouter.post("/populate", async (request, response) => {
     return response.json(populatedUsers)
 })
 
-userRouter.get("/:username", async (request, response) => {
+userRouter.get("/username/:username", async (request, response) => {
     const user = await User.find({
         userName: request.params.username
     })

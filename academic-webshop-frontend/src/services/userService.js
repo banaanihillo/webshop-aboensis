@@ -27,9 +27,15 @@ const populateUsers = async (users) => {
 }
 
 const getPopulatedUsers = async (userNames) => {
-    const responseOne = await axios.get(`${address}/${userNames[0]}`)
-    const responseTwo = await axios.get(`${address}/${userNames[1]}`)
-    const responseThree = await axios.get(`${address}/${userNames[2]}`)
+    const responseOne = await axios.get(
+        `${address}/username/${userNames[0]}`
+    )
+    const responseTwo = await axios.get(
+        `${address}/username/${userNames[1]}`
+    )
+    const responseThree = await axios.get(
+        `${address}/username/${userNames[2]}`
+    )
     const response = {
         1: responseOne.data[0],
         2: responseTwo.data[0],
