@@ -6,7 +6,7 @@ import LogIn from "./components/LogIn"
 import MyItems from "./components/MyItems"
 import Cart from "./components/Cart"
 import './App.css';
-import {BrowserRouter, Switch, Route, Link} from "react-router-dom"
+import {Switch, Route, Link} from "react-router-dom"
 import {getItemsForSale, setToken} from "./services/itemService"
 import cart from "./assets/cart-96x96.svg"
 
@@ -17,15 +17,13 @@ const App = () => {
         _id: null
     })
     const [itemsInCart, setItemsInCart] = useState([])
-
+    
     useEffect(() => {
         getItemsForSale()
             .then(responseData => {
-                const myItemsExcluded = responseData.filter(item => {
-                    return (item.seller !== loggedIn._id)
-                })
-                setItemsForSale(myItemsExcluded)
+                setItemsForSale(responseData)
             })
+        
     },
     [loggedIn])
 
@@ -87,64 +85,61 @@ const App = () => {
     }
 
     return (
-        <BrowserRouter>
-            <div className="App">
-                
-                <header className="App-header">
-                    <h1> Academic Webshop </h1>
-                    <span className = "App-header-search-bar">
-                        Search lorem here ipsum placeholder
-                    </span>
-                    <ConditionalLinks />
-                </header>
 
-                <main className="App-main">
-                    <Switch>
-                        <Route path="/my-items">
-                            <MyItems
-                                userid = {loggedIn._id}
-                                itemsForSale = {itemsForSale}
-                                setItemsForSale = {setItemsForSale}
-                            />
-                        </Route>
-                        <Route path="/shop/cart">
-                            <Cart
-                                itemsInCart = {itemsInCart}
-                                setItemsInCart = {setItemsInCart}
-                                userid = {loggedIn._id}
-                            />
-                        </Route>
-                        <Route path="/shop">
-                            <ItemList
-                                termsAccepted = {termsAccepted}
-                                acceptTerms = {acceptTerms}
-                                itemsForSale = {itemsForSale}
-                                loggedIn = {loggedIn}
-                                itemsInCart = {itemsInCart}
-                                setItemsInCart = {setItemsInCart}
-                            />
-                        </Route>
-                        <Route path="/login">
-                            <LogIn setLoggedIn = {setLoggedIn} />
-                        </Route>
-                        <Route path="/signup">
-                            <SignUp />
-                        </Route>
-                        <Route path="/">
-                            <LandingPage
-                                termsAccepted = {termsAccepted}
-                                acceptTerms = {acceptTerms}
-                                itemsForSale = {itemsForSale}
-                                setLoggedIn = {setLoggedIn}
-                                setToken = {setToken}
-                            />
-                        </Route>
-                    </Switch>
-                </main>
+        <div className="App">
+            
+            <header className="App-header">
+                <h1> Academic Webshop </h1>
+                <span className = "App-header-search-bar">
+                    Search lorem here ipsum placeholder
+                </span>
+                <ConditionalLinks />
+            </header>
 
+            <main className="App-main">
+                <Switch>
+                    <Route path="/my-items">
+                        <MyItems
+                            userid = {loggedIn._id}
+                            itemsForSale = {itemsForSale}
+                            setItemsForSale = {setItemsForSale}
+                        />
+                    </Route>
+                    <Route path="/shop/cart">
+                        <Cart
+                            itemsInCart = {itemsInCart}
+                            setItemsInCart = {setItemsInCart}
+                            userid = {loggedIn._id}
+                        />
+                    </Route>
+                    <Route path="/shop">
+                        <ItemList
+                            termsAccepted = {termsAccepted}
+                            acceptTerms = {acceptTerms}
+                            loggedIn = {loggedIn}
+                            itemsInCart = {itemsInCart}
+                            setItemsInCart = {setItemsInCart}
+                        />
+                    </Route>
+                    <Route path="/login">
+                        <LogIn setLoggedIn = {setLoggedIn} />
+                    </Route>
+                    <Route path="/signup">
+                        <SignUp />
+                    </Route>
+                    <Route path="/">
+                        <LandingPage
+                            termsAccepted = {termsAccepted}
+                            acceptTerms = {acceptTerms}
+                            itemsForSale = {itemsForSale}
+                            setLoggedIn = {setLoggedIn}
+                            setToken = {setToken}
+                        />
+                    </Route>
+                </Switch>
+            </main>
+        </div>
 
-            </div>
-        </BrowserRouter>
     );
 }
 

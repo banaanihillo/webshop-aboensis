@@ -1,15 +1,28 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import {Link} from "react-router-dom"
+import {getItemsForSale} from "../services/itemService"
 
 const ItemList = (props) => {
     const {
         termsAccepted,
         acceptTerms,
-        itemsForSale,
+        setItemsInCart,
         loggedIn,
-        itemsInCart,
-        setItemsInCart
+        itemsInCart
     } = props
+
+    const [myItemsExcluded, setMyItemsExcluded] = useState([])
+
+    useEffect(() => {
+        getItemsForSale()
+            .then(responseData => {
+                const myItemsExcluded = responseData.filter(item => {
+                    return (item.seller !== loggedIn._id)
+                })
+                setMyItemsExcluded(myItemsExcluded)
+            })
+    },
+    [loggedIn])
 
     const addToCart = (addedItem) => {
         const alreadyInCart = itemsInCart.find(item => {
@@ -36,7 +49,7 @@ const ItemList = (props) => {
             </div>
         )
     } else {
-        if (itemsForSale.length < 1) {
+        if (myItemsExcluded.length < 1) {
             return (
                 <div>
                     Nothing to see here.
@@ -55,7 +68,7 @@ const ItemList = (props) => {
                         </span>
                     }
                     <ul className = "item-list-container">
-                        {itemsForSale.map(item => {
+                        {myItemsExcluded.map(item => {
                             return <li key = {item._id}>
                                 Item: {item.name} <br />
                                 Price: {item.price} <br />
