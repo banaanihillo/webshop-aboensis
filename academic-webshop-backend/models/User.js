@@ -9,9 +9,13 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    password: {
+        type: String,
+        required: false
+    },
     passwordHash: {
         type: String,
-        required: true
+        required: false
     },
     itemsForSale: [
         {

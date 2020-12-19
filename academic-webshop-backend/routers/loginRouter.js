@@ -1,5 +1,5 @@
 const jsonWebToken = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
+//const bcrypt = require("bcrypt")
 const loginRouter = require("express").Router()
 const User = require("../models/User")
 
@@ -12,7 +12,7 @@ loginRouter.post("/", async (request, response) => {
             error: `The user ${request.body.userName} was not found.`
         })
     }
-
+    /*
     const correctPassword = await bcrypt.compare(
         request.body.password,
         user.passwordHash
@@ -22,6 +22,7 @@ loginRouter.post("/", async (request, response) => {
             error: "Incorrect password."
         })
     }
+    */
 
     const tokenUser = {
         userName: user.userName,

@@ -1,13 +1,33 @@
 import React from "react"
+import {makeItemTransaction} from "../services/userService"
 
 const Cart = (props) => {
-    const {itemsInCart, setItemsInCart} = props
+    const {itemsInCart, setItemsInCart, userid} = props
 
     const removeFromCart = (id) => {
         const filteredCart = itemsInCart.filter(item => {
             return (item._id !== id)
         })
         setItemsInCart(filteredCart)
+    }
+
+    const handleItemTransaction = async (event) => {
+        event.preventDefault()
+        console.log(itemsInCart)
+        //so the method needs the item identifiers,
+        //and also the seller identifiers,
+        //and the currently logged in user identifier
+        //and update all the items sold, bought, and for sale
+        const responseData = await makeItemTransaction(
+            userid,
+            itemsInCart
+        )
+        //set this to currentlyLoggedIn itemsBought
+        console.log(responseData.updatedBuyer)
+        //set this to? everywhere?
+        console.log(responseData.updatedSellers)
+        //refetch all types of items?
+        console.log(responseData.updatedItems)
     }
 
     if (itemsInCart.length < 1) {
@@ -46,7 +66,7 @@ const Cart = (props) => {
             <p className = "cart-buttons">
                 <button
                     type = "submit"
-                    onClick = {() => console.log("Checking out")}
+                    onClick = {handleItemTransaction}
                 >
                     Check out
                 </button>

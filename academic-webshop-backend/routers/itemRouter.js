@@ -3,6 +3,12 @@ const Item = require("../models/Item")
 const User = require("../models/User")
 const jsonWebToken = require("jsonwebtoken")
 
+itemRouter.post("/populate", async (request, response) => {
+    await Item.deleteMany({})
+    const populatedItems = await Item.insertMany(request.body)
+    return response.json(populatedItems)
+})
+
 itemRouter.get("/ping", (_request, response) => {
     response.send("Pong")
 })
@@ -114,6 +120,11 @@ itemRouter.patch("/:id", async (request, response) => {
     } else {
         response.json(patchedItem)
     }
+})
+
+itemRouter.delete("/", async (_request, response) => {
+    await Item.deleteMany({})
+    return response.status(204).end()
 })
 
 module.exports = itemRouter

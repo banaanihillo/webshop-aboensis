@@ -1,7 +1,0 @@
-PATCH http://localhost:3001/users/5fd6137fb335d81174628682
-Content-Type: application/json
-
-{
-    "itemid": "5fd613a6b335d81174628684",
-    "sellerid": "5fd6138fb335d81174628683"
-}

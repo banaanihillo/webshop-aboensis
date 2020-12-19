@@ -13,14 +13,44 @@ const getUser = async (userid) => {
     return response.data
 }
 
-const makeItemTransaction = async (userid) => {
-    const response = await axios.get(`${address}/${userid}`)
+const makeItemTransaction = async (userid, items) => {
+    console.log(items)
+    console.log(userid)
+    const response = await axios.patch(`${address}/${userid}`, items)
     console.log(response)
+    return response.data
+}
+
+const populateUsers = async (users) => {
+    const response = await axios.post(`${address}/populate`, users)
+    return response.data
+}
+
+const getPopulatedUsers = async (userNames) => {
+    const responseOne = await axios.get(`${address}/${userNames[0]}`)
+    const responseTwo = await axios.get(`${address}/${userNames[1]}`)
+    const responseThree = await axios.get(`${address}/${userNames[2]}`)
+    const response = {
+        1: responseOne.data[0],
+        2: responseTwo.data[0],
+        3: responseThree.data[0]
+    }
+    return response
+}
+
+const postPopulatedItems = async (items) => {
+    const response = await axios.post(
+        `${address}/populated-items`,
+        items
+    )
     return response.data
 }
 
 export {
     createNewUser,
     getUser,
-    makeItemTransaction
+    makeItemTransaction,
+    populateUsers,
+    getPopulatedUsers,
+    postPopulatedItems
 }

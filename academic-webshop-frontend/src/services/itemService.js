@@ -26,9 +26,15 @@ const getItem = async (itemid) => {
     return response.data
 }
 
+const populateItems = async (items) => {
+    const response = await axios.post(`${address}/populate`, items)
+    return response.data
+}
+
 export {
     getItemsForSale,
     createNewItem,
     getItem,
-    setToken
+    setToken,
+    populateItems
 }

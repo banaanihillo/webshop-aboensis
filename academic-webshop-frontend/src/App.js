@@ -111,6 +111,7 @@ const App = () => {
                             <Cart
                                 itemsInCart = {itemsInCart}
                                 setItemsInCart = {setItemsInCart}
+                                userid = {loggedIn._id}
                             />
                         </Route>
                         <Route path="/shop">
