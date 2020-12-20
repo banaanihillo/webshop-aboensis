@@ -110,6 +110,7 @@ const App = () => {
                             itemsInCart = {itemsInCart}
                             setItemsInCart = {setItemsInCart}
                             userid = {loggedIn._id}
+                            setItemsForSale = {setItemsForSale}
                         />
                     </Route>
                     <Route path="/shop">

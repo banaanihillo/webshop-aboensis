@@ -120,11 +120,9 @@ userRouter.get("/", async (_request, response) => {
 
 userRouter.patch("/:id", async (request, response) => {
     try {
-        const itemIdentifiers = Object.values(request.body)
-            .map(item => item._id)
+        const itemIdentifiers = request.body.map(item => item._id)
 
-        const sellerIdentifiers = Object.values(request.body)
-            .map(item => item.seller)
+        const sellerIdentifiers = request.body.map(item => item.seller)
 
         itemIdentifiers.forEach(async itemIdentifier => {
             await User.updateOne(
@@ -140,6 +138,9 @@ userRouter.patch("/:id", async (request, response) => {
                     $push: {
                         itemsSold: itemIdentifier
                     }
+                },
+                {
+                    new: true
                 }
             )
             await Item.updateOne(
@@ -160,7 +161,10 @@ userRouter.patch("/:id", async (request, response) => {
                         buyer: request.params.id,
                         forSale: false
                     }
-                } //
+                },
+                {
+                    new: true
+                }
             )
         })
         const updatedSellers = await User.find({})

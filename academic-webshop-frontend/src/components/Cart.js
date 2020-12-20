@@ -1,8 +1,11 @@
 import React from "react"
-//import {makeItemTransaction} from "../services/userService"
+import {makeItemTransaction} from "../services/userService"
+import {getItemsForSale} from "../services/itemService"
 
 const Cart = (props) => {
-    const {itemsInCart, setItemsInCart, userid} = props
+    const {
+        itemsInCart, setItemsInCart, userid, setItemsForSale
+    } = props
 
     const removeFromCart = (id) => {
         const filteredCart = itemsInCart.filter(item => {
@@ -13,24 +16,13 @@ const Cart = (props) => {
 
     const handleItemTransaction = async (event) => {
         event.preventDefault()
-        console.log(itemsInCart)
-        console.log(userid)
-        //so the method needs the item identifiers,
-        //and also the seller identifiers,
-        //and the currently logged in user identifier
-        //and update all the items sold, bought, and for sale
-        /*
-        const responseData = await makeItemTransaction(
+        await makeItemTransaction(
             userid,
             itemsInCart
         )
-        //set this to currentlyLoggedIn itemsBought
-        console.log(responseData.updatedBuyer)
-        //set this to? everywhere?
-        console.log(responseData.updatedSellers)
-        //refetch all types of items?
-        console.log(responseData.updatedItems)
-        */
+        const responseData = await getItemsForSale()
+        setItemsForSale(responseData)
+        setItemsInCart([])
     }
 
     if (itemsInCart.length < 1) {
@@ -76,7 +68,7 @@ const Cart = (props) => {
                 <button
                     type = "button"
                     className = "button-cancel"
-                    onClick = {() => console.log("Cart emptied")}
+                    onClick = {() => setItemsInCart([])}
                 >
                     Remove all items
                 </button>
