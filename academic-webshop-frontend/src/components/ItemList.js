@@ -12,6 +12,8 @@ const ItemList = (props) => {
     } = props
 
     const [myItemsExcluded, setMyItemsExcluded] = useState([])
+    const [activePage, setActivePage] = useState(1)
+    const [currentPageItems, setCurrentPageItems] = useState([])
 
     useEffect(() => {
         getItemsForSale()
@@ -23,6 +25,47 @@ const ItemList = (props) => {
             })
     },
     [loggedIn])
+    
+    const itemsPerPage = 6
+    const lastItemIndex = activePage * itemsPerPage
+    const firstItemIndex = lastItemIndex - itemsPerPage
+    let pageNumbers = []
+
+    useEffect(() => {
+        if (myItemsExcluded.length > 0) {
+            setCurrentPageItems(myItemsExcluded.slice(
+                firstItemIndex, lastItemIndex
+            ))
+        }
+    },
+    [myItemsExcluded, firstItemIndex, lastItemIndex])
+
+    const handlePageChange = (event) => {
+        setActivePage(event.target.value)
+    }
+
+    const generatePageNumbers = () => {
+        for (
+            let i = 1;
+            i <= Math.ceil(myItemsExcluded.length / itemsPerPage);
+            i++
+        ) {
+            pageNumbers.push(i)
+        }
+        return (
+            <ul className = "pagination">
+                {pageNumbers.map(pageNumber => {
+                    return <li
+                        key = {pageNumber}
+                        value = {pageNumber}
+                        onClick = {handlePageChange}
+                    >
+                        {pageNumber}
+                    </li>
+                })}
+            </ul>
+        )
+    }
 
     const addToCart = (addedItem) => {
         const alreadyInCart = itemsInCart.find(item => {
@@ -68,7 +111,7 @@ const ItemList = (props) => {
                         </span>
                     }
                     <ul className = "item-list-container">
-                        {myItemsExcluded.map(item => {
+                        {currentPageItems.map(item => {
                             return <li key = {item._id}>
                                 Item: {item.name} <br />
                                 Price: {item.price} <br />
@@ -85,7 +128,7 @@ const ItemList = (props) => {
                             </li>
                         })}
                     </ul>
-
+                    {generatePageNumbers()}
                 </div>
             )
         }

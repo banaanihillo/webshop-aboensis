@@ -98,6 +98,20 @@ ul {
     }
 }
 
+a {
+    color: #61dafb;
+}
+
+a:visited {
+    color: violet;
+}
+
+.App-main {
+    margin-top: 2vh;
+    border-top: 1px solid darkmagenta;
+    height: 80vh;
+}
+
 @media screen and (max-height: 599px) {
     .App-header {
         height: 20vh;
@@ -115,21 +129,7 @@ ul {
         max-height: 70vh;
     }
 }
-
-a {
-    color: #61dafb;
-}
-
-a:visited {
-    color: violet;
-}
-
-.App-main {
-    margin-top: 2vh;
-    border-top: 1px solid darkmagenta;
-    height: 80vh;
-}
-/**/
+/*aaaaaaaa*/
 .landing-page-container {
     display: flex;
     flex-direction: column;
@@ -187,3 +187,11 @@ button[type="submit"] {
     background-color: tomato;
 }
 /**/
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination li {
+    outline: 1px solid hotpink;
+}
