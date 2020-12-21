@@ -135,6 +135,7 @@ const App = () => {
                             itemsForSale = {itemsForSale}
                             setLoggedIn = {setLoggedIn}
                             setToken = {setToken}
+                            setItemsForSale = {setItemsForSale}
                         />
                     </Route>
                 </Switch>

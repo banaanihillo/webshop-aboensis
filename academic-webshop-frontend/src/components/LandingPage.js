@@ -13,7 +13,8 @@ const LandingPage = (props) => {
         acceptTerms,
         itemsForSale,
         setLoggedIn,
-        setToken
+        setToken,
+        setItemsForSale
     } = props
 
     const [databasePopulated, setDatabasePopulated] = useState(false)
@@ -50,17 +51,17 @@ const LandingPage = (props) => {
                     seller: {
                         userName: `testuser${i}`,
                         _id: sellers[i]._id
-                    }
+                    },
+                    date: new Date()
                 })
             }
         }
         await populateItems(itemsToPopulate)
         
         const itemsForSale = await getItemsForSale()
-        console.log(itemsForSale)
-        const updatedUsers = await postPopulatedItems(itemsForSale)
-        console.log(updatedUsers)
+        await postPopulatedItems(itemsForSale)
         setDatabasePopulated(true)
+        setItemsForSale(itemsForSale)
     }
 
     return (

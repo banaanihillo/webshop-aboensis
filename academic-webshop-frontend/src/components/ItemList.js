@@ -26,7 +26,7 @@ const ItemList = (props) => {
     },
     [loggedIn])
     
-    const itemsPerPage = 6
+    const itemsPerPage = 4
     const lastItemIndex = activePage * itemsPerPage
     const firstItemIndex = lastItemIndex - itemsPerPage
     let pageNumbers = []
