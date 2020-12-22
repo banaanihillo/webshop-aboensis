@@ -5,9 +5,12 @@ import SignUp from "./components/SignUp"
 import LogIn from "./components/LogIn"
 import MyItems from "./components/MyItems"
 import Cart from "./components/Cart"
+import Search from "./components/Search"
 import './App.css';
 import {Switch, Route, Link} from "react-router-dom"
-import {getItemsForSale, setToken} from "./services/itemService"
+import {
+    getItemsForSale, setToken
+} from "./services/itemService"
 import cart from "./assets/cart-96x96.svg"
 
 const App = () => {
@@ -17,6 +20,7 @@ const App = () => {
         _id: null
     })
     const [itemsInCart, setItemsInCart] = useState([])
+    const [filteredItems, setFilteredItems] = useState(null)
     
     useEffect(() => {
         getItemsForSale()
@@ -90,9 +94,10 @@ const App = () => {
             
             <header className="App-header">
                 <h1> Academic Webshop </h1>
-                <span className = "App-header-search-bar">
-                    Search lorem here ipsum placeholder
-                </span>
+                <Search
+                    itemsForSale = {itemsForSale}
+                    setFilteredItems = {setFilteredItems}
+                />
                 <ConditionalLinks />
             </header>
 
@@ -120,6 +125,7 @@ const App = () => {
                             loggedIn = {loggedIn}
                             itemsInCart = {itemsInCart}
                             setItemsInCart = {setItemsInCart}
+                            filteredItems = {filteredItems}
                         />
                     </Route>
                     <Route path="/login">

@@ -8,7 +8,8 @@ const ItemList = (props) => {
         acceptTerms,
         setItemsInCart,
         loggedIn,
-        itemsInCart
+        itemsInCart,
+        filteredItems
     } = props
 
     const [myItemsExcluded, setMyItemsExcluded] = useState([])
@@ -16,15 +17,22 @@ const ItemList = (props) => {
     const [currentPageItems, setCurrentPageItems] = useState([])
 
     useEffect(() => {
-        getItemsForSale()
-            .then(responseData => {
-                const myItemsExcluded = responseData.filter(item => {
-                    return (item.seller !== loggedIn._id)
+        if (filteredItems) {
+            setMyItemsExcluded(filteredItems)
+        } else {
+            getItemsForSale()
+                .then(responseData => {
+                    const myItemsExcluded = responseData
+                        .filter(item => {
+                            return (
+                                item.seller !== loggedIn._id
+                            )
+                        })
+                    setMyItemsExcluded(myItemsExcluded)
                 })
-                setMyItemsExcluded(myItemsExcluded)
-            })
+        }
     },
-    [loggedIn])
+    [loggedIn, filteredItems])
     
     const itemsPerPage = 4
     const lastItemIndex = activePage * itemsPerPage

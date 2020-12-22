@@ -26,6 +26,11 @@ html {
     flex: 1 1 auto;
 }
 
+.App-header-search-bar input {
+    background-color: violet;
+    margin-left: 1em;
+}
+
 .App-header-links {
     flex: 0 1 auto;
     display: flex;
