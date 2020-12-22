@@ -31,7 +31,11 @@ html {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-around;
-    gap: 1vmin;
+    /*removed gap in favor of a more supported margin*/
+}
+
+.App-header-links a {
+    margin: 1vmin;
 }
 
 img:hover {
