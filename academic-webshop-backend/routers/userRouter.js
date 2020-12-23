@@ -209,4 +209,15 @@ userRouter.delete("/", async (_request, response) => {
     return response.status(204).end()
 })
 
+userRouter.put("/:id", async (request, response) => {
+    const updatedCredentials = await User.findByIdAndUpdate(
+        request.params.id,
+        request.body,
+        {
+            new: true
+        }
+    )
+    return response.json(updatedCredentials)
+})
+
 module.exports = userRouter

@@ -6,6 +6,7 @@ import LogIn from "./components/LogIn"
 import MyItems from "./components/MyItems"
 import Cart from "./components/Cart"
 import Search from "./components/Search"
+import Account from "./components/Account"
 import './App.css';
 import {Switch, Route, Link} from "react-router-dom"
 import {
@@ -47,9 +48,10 @@ const App = () => {
         if (loggedIn._id) {
             return (
                 <span className = "App-header-links">
-                    <Link to="/"> Home </Link>
+                    
                     <Link to="/shop"> Shop </Link>
                     <Link to="/my-items"> My items </Link>
+                    <Link to="/account"> Account </Link>
                     <Link to="/" onClick={() => {
                         window.localStorage.removeItem(
                             "currentlyLoggedIn"
@@ -79,7 +81,7 @@ const App = () => {
         } else {
             return (
                 <span className = "App-header-links">
-                    <Link to="/"> Home </Link>
+                    
                     <Link to="/shop"> Shop </Link>
                     <Link to="/login"> Log in </Link>
                     <Link to="/signup"> Sign up </Link>
@@ -103,6 +105,11 @@ const App = () => {
 
             <main className="App-main">
                 <Switch>
+                    <Route path="/account">
+                        <Account
+                            userid = {loggedIn._id}
+                        />
+                    </Route>
                     <Route path="/my-items">
                         <MyItems
                             userid = {loggedIn._id}

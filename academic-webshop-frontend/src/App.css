@@ -106,9 +106,25 @@ ul {
     }
     .my-items-container {
         flex-flow: column nowrap;
+        justify-content: center;
+    }
+    .my-items-container li {
+        max-width: 90vw;
     }
     .item-list-container {
         grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    h1 {
+        font-size: 1.5em;
+    }
+    .App-header {
+        height: 30vh;
+    }
+    .App-main {
+        max-height: 65vh;
     }
 }
 
@@ -143,7 +159,7 @@ a:visited {
         max-height: 70vh;
     }
 }
-/*aaaaaaaa*/
+
 .landing-page-container {
     display: flex;
     flex-direction: column;
@@ -170,6 +186,7 @@ form {
     padding: 1em;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 1em 1em;
 }
 
 form label {

@@ -52,11 +52,20 @@ const postPopulatedItems = async (items) => {
     return response.data
 }
 
+const changePassword = async (id, newPassword) => {
+    const response = await axios.put(
+        `${address}/${id}`,
+        newPassword
+    )
+    return response.data
+}
+
 export {
     createNewUser,
     getUser,
     makeItemTransaction,
     populateUsers,
     getPopulatedUsers,
-    postPopulatedItems
+    postPopulatedItems,
+    changePassword
 }
