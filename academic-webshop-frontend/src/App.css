@@ -234,3 +234,7 @@ button[type="submit"] {
         height: 50vh;
     }
 }
+
+input:disabled {
+    cursor: not-allowed;
+}

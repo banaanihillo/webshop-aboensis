@@ -31,10 +31,19 @@ const populateItems = async (items) => {
     return response.data
 }
 
+const editItem = async (id, newProperties) => {
+    const response = await axios.patch(
+        `${address}/${id}`,
+        newProperties
+    )
+    return response.data
+}
+
 export {
     getItemsForSale,
     createNewItem,
     getItem,
     setToken,
-    populateItems
+    populateItems,
+    editItem
 }

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {getUser} from "../services/userService"
 import AddItemForm from "./AddItemForm"
+import {Link} from "react-router-dom"
 
 const MyItems = (props) => {
     const {userid, itemsForSale, setItemsForSale} = props
@@ -50,6 +51,9 @@ const MyItems = (props) => {
                             Item: {item.name} <br />
                             Price: {item.price} <br />
                             {item.description}
+                            <Link to={`/my-items/${item._id}`}>
+                                Edit
+                            </Link>
                         </li>
                     })}
                 </span>

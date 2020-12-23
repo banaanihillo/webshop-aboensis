@@ -7,8 +7,9 @@ import MyItems from "./components/MyItems"
 import Cart from "./components/Cart"
 import Search from "./components/Search"
 import Account from "./components/Account"
+import EditItemForm from "./components/EditItemForm"
 import './App.css';
-import {Switch, Route, Link} from "react-router-dom"
+import {Switch, Route, Link, useRouteMatch} from "react-router-dom"
 import {
     getItemsForSale, setToken
 } from "./services/itemService"
@@ -43,6 +44,13 @@ const App = () => {
         }
     },
     [])
+
+    const itemMatch = useRouteMatch("/my-items/:id")
+    const individualItem = (itemMatch)
+        ? itemsForSale.find(item => {
+            return (item._id === itemMatch.params.id)
+        })
+        : null
 
     const ConditionalLinks = () => {
         if (loggedIn._id) {
@@ -108,6 +116,13 @@ const App = () => {
                     <Route path="/account">
                         <Account
                             userid = {loggedIn._id}
+                        />
+                    </Route>
+                    <Route path="/my-items/:id">
+                        <EditItemForm
+                            itemsForSale={itemsForSale}
+                            setItemsForSale={setItemsForSale}
+                            individualItem={individualItem}
                         />
                     </Route>
                     <Route path="/my-items">
