@@ -1,11 +1,23 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {makeItemTransaction} from "../services/userService"
 import {getItemsForSale} from "../services/itemService"
 
 const Cart = (props) => {
     const {
-        itemsInCart, setItemsInCart, userid, setItemsForSale
+        itemsInCart,
+        setItemsInCart,
+        userid,
+        setItemsForSale,
+        itemsForSale
     } = props
+
+    useEffect(() => {
+        getItemsForSale()
+            .then(responseData => {
+                setItemsForSale(responseData)
+            })
+    },
+    [setItemsForSale])
 
     const removeFromCart = (id) => {
         const filteredCart = itemsInCart.filter(item => {
@@ -16,13 +28,44 @@ const Cart = (props) => {
 
     const handleItemTransaction = async (event) => {
         event.preventDefault()
-        await makeItemTransaction(
-            userid,
-            itemsInCart
-        )
-        const responseData = await getItemsForSale()
-        setItemsForSale(responseData)
-        setItemsInCart([])
+        let itemsHaveChanged = false
+        const changedPrices = itemsInCart.some(cartItem => {
+            const itemToCompare = itemsForSale.find(itemForSale => {
+                return (itemForSale._id === cartItem._id)
+            })
+            if (itemToCompare.price !== cartItem.price) {
+                const changedCartItem = {
+                    ...cartItem,
+                    price: itemToCompare.price
+                }
+                const changedItems = itemsInCart.map(item => {
+                    return (item._id === itemToCompare._id)
+                        ? changedCartItem
+                        : item
+                })
+                setItemsInCart(changedItems)
+                itemsHaveChanged = true
+                return itemsHaveChanged
+            } else {
+                console.log("Just passing through, no changes")
+            }
+            return itemsHaveChanged
+        })
+        if (changedPrices) {
+            window.alert(`
+                The price of an item in the cart has changed.
+                The transaction has been halted,
+                and the updated price is now shown.
+            `)
+        } else {
+            await makeItemTransaction(
+                userid,
+                itemsInCart
+            )
+            const responseData = await getItemsForSale()
+            setItemsForSale(responseData)
+            setItemsInCart([])
+        }
     }
 
     if (itemsInCart.length < 1) {
