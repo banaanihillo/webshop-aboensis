@@ -26,9 +26,9 @@ const Cart = (props) => {
         setItemsInCart(filteredCart)
     }
 
-    const handleItemTransaction = async (event) => {
-        event.preventDefault()
+    const checkAvailability = async () => {
         const refetchedItems = await getItemsForSale()
+
         const inStock = itemsInCart.every(itemInCart => {
             const itemFound = refetchedItems.some(refetchedItem => {
                 return (refetchedItem._id === itemInCart._id)
@@ -38,10 +38,10 @@ const Cart = (props) => {
                     ...itemInCart,
                     forSale: false
                 }
-                const updatedItems = itemsInCart.map(updatedItem => {
-                    return (updatedItem._id === unavailableItem._id)
+                const updatedItems = itemsInCart.map(item => {
+                    return (item._id === unavailableItem._id)
                         ? unavailableItem
-                        : updatedItem
+                        : item
                 })
                 const unavailableItemsRemoved = updatedItems
                     .filter(recheckedItem => {
@@ -51,14 +51,10 @@ const Cart = (props) => {
             }
             return itemFound
         })
-        if (!inStock) {
-            window.alert(`
-                An item in your cart is no longer in stock.
-                The item has now been removed from your cart.
-            `)
-            return
-        }
-        
+        return inStock
+    }
+
+    const checkPricing = () => {
         let itemsHaveChanged = false
         const changedPrices = itemsInCart.some(cartItem => {
             const itemToCompare = itemsForSale.find(itemForSale => {
@@ -77,27 +73,42 @@ const Cart = (props) => {
                 setItemsInCart(changedItems)
                 itemsHaveChanged = true
                 return itemsHaveChanged
-            } else {
-                console.log("Just passing through, no changes")
             }
             return itemsHaveChanged
         })
+        return changedPrices
+    }
+
+    const handleItemTransaction = async (event) => {
+        event.preventDefault()
+
+        const inStock = await checkAvailability()
+        if (!inStock) {
+            window.alert(`
+                An item in your cart is no longer in stock.
+                The item has now been removed from your cart.
+            `)
+            return
+        }
+
+        const changedPrices = await checkPricing()
         if (changedPrices) {
             window.alert(`
                 The price of an item in the cart has changed.
                 The transaction has been halted,
                 and the updated price is now shown.
             `)
-        } else {
-            await makeItemTransaction(
-                userid,
-                itemsInCart
-            )
-            const responseData = await getItemsForSale()
-            setItemsForSale(responseData)
-            setItemsInCart([])
-            console.log("Transaction successful.")
+            return
         }
+
+        await makeItemTransaction(
+            userid,
+            itemsInCart
+        )
+        const responseData = await getItemsForSale()
+        setItemsForSale(responseData)
+        setItemsInCart([])
+        console.log("Transaction successful.")
     }
 
     if (itemsInCart.length < 1) {

@@ -14,10 +14,9 @@ const getUser = async (userid) => {
 }
 
 const makeItemTransaction = async (userid, items) => {
-    console.log(items)
-    console.log(userid)
+
     const response = await axios.patch(`${address}/${userid}`, items)
-    console.log(response)
+    
     return response.data
 }
 
