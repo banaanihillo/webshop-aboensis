@@ -28,6 +28,12 @@ const ItemList = (props) => {
                                 item.seller !== loggedIn._id
                             )
                         })
+                    myItemsExcluded.sort((item1, item2) => {  
+                        return (
+                            Date.parse(item2.date)
+                            - Date.parse(item1.date)
+                        )
+                    })
                     setMyItemsExcluded(myItemsExcluded)
                 })
         }

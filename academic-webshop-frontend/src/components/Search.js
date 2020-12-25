@@ -9,6 +9,9 @@ const Search = (props) => {
                 event.target.value.toLowerCase()
             )
         )
+        filteredItems.sort((item1, item2) => {
+            return (Date.parse(item2.date) - Date.parse(item1.date))
+        })
         setFilteredItems(filteredItems)
     }
 

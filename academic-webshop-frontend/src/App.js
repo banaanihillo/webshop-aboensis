@@ -31,7 +31,7 @@ const App = () => {
             })
         
     },
-    [loggedIn])
+    [loggedIn, filteredItems])
 
     useEffect(() => {
         const currentlyLoggedIn = window.localStorage.getItem(
