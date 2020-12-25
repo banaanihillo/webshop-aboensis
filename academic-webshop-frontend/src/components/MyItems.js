@@ -50,7 +50,7 @@ const MyItems = (props) => {
                         return <li key = {item._id}>
                             Item: {item.name} <br />
                             Price: {item.price} <br />
-                            {item.description}
+                            {item.description} <br />
                             <Link to={`/my-items/${item._id}`}>
                                 Edit
                             </Link>

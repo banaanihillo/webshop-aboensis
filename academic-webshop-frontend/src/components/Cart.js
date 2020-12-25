@@ -1,12 +1,13 @@
 import React, {useEffect} from "react"
 import {makeItemTransaction} from "../services/userService"
 import {getItemsForSale} from "../services/itemService"
+import {sendElectronicMail} from "../services/electronicMailService"
 
 const Cart = (props) => {
     const {
         itemsInCart,
         setItemsInCart,
-        userid,
+        loggedIn,
         setItemsForSale,
         itemsForSale
     } = props
@@ -102,11 +103,15 @@ const Cart = (props) => {
         }
 
         await makeItemTransaction(
-            userid,
+            loggedIn._id,
             itemsInCart
         )
         const responseData = await getItemsForSale()
         setItemsForSale(responseData)
+
+        const itemNames = itemsInCart.map(item => item.name)
+        const mailSent = await sendElectronicMail(loggedIn, itemNames)
+        console.log(mailSent.mailPreview)
         setItemsInCart([])
         console.log("Transaction successful.")
     }

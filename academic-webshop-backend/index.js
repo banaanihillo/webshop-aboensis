@@ -5,6 +5,7 @@ const mongoose = require("mongoose")
 const itemRouter = require("./routers/itemRouter")
 const userRouter = require("./routers/userRouter")
 const loginRouter = require("./routers/loginRouter")
+const electronicMailRouter = require("./routers/electronicMailRouter")
 const app = express()
 app.use(express.json())
 app.use(cors())
@@ -27,6 +28,7 @@ mongoose
 app.use("/items", itemRouter)
 app.use("/users", userRouter)
 app.use("/login", loginRouter)
+app.use("/electronic-mail", electronicMailRouter)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {

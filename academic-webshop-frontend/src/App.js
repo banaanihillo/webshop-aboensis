@@ -136,7 +136,7 @@ const App = () => {
                         <Cart
                             itemsInCart = {itemsInCart}
                             setItemsInCart = {setItemsInCart}
-                            userid = {loggedIn._id}
+                            loggedIn = {loggedIn}
                             setItemsForSale = {setItemsForSale}
                             itemsForSale = {itemsForSale}
                         />

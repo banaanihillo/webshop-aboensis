@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+        "noEmit": false,
+        "outDir": "bananas_ananas_anananana"
+    }
+}
