@@ -28,6 +28,37 @@ const Cart = (props) => {
 
     const handleItemTransaction = async (event) => {
         event.preventDefault()
+        const refetchedItems = await getItemsForSale()
+        const inStock = itemsInCart.every(itemInCart => {
+            const itemFound = refetchedItems.some(refetchedItem => {
+                return (refetchedItem._id === itemInCart._id)
+            })
+            if (!itemFound) {
+                const unavailableItem = {
+                    ...itemInCart,
+                    forSale: false
+                }
+                const updatedItems = itemsInCart.map(updatedItem => {
+                    return (updatedItem._id === unavailableItem._id)
+                        ? unavailableItem
+                        : updatedItem
+                })
+                const unavailableItemsRemoved = updatedItems
+                    .filter(recheckedItem => {
+                        return (recheckedItem.forSale === true)
+                    })
+                setItemsInCart(unavailableItemsRemoved)
+            }
+            return itemFound
+        })
+        if (!inStock) {
+            window.alert(`
+                An item in your cart is no longer in stock.
+                The item has now been removed from your cart.
+            `)
+            return
+        }
+        
         let itemsHaveChanged = false
         const changedPrices = itemsInCart.some(cartItem => {
             const itemToCompare = itemsForSale.find(itemForSale => {
@@ -65,6 +96,7 @@ const Cart = (props) => {
             const responseData = await getItemsForSale()
             setItemsForSale(responseData)
             setItemsInCart([])
+            console.log("Transaction successful.")
         }
     }
 
