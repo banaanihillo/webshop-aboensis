@@ -9,7 +9,8 @@ const ItemList = (props) => {
         setItemsInCart,
         loggedIn,
         itemsInCart,
-        filteredItems
+        filteredItems,
+        showNotification
     } = props
 
     const [myItemsExcluded, setMyItemsExcluded] = useState([])
@@ -86,7 +87,11 @@ const ItemList = (props) => {
             return (item._id === addedItem._id)
         })
         if (alreadyInCart) {
-            console.log("Already in your cart.")
+            showNotification(
+                "Already in your cart.",
+                "errorMessage",
+                2000
+            )
         } else {
             setItemsInCart(itemsInCart.concat(addedItem))   
         }

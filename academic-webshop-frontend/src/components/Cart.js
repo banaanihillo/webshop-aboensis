@@ -9,7 +9,8 @@ const Cart = (props) => {
         setItemsInCart,
         loggedIn,
         setItemsForSale,
-        itemsForSale
+        itemsForSale,
+        showNotification
     } = props
 
     useEffect(() => {
@@ -85,20 +86,23 @@ const Cart = (props) => {
 
         const inStock = await checkAvailability()
         if (!inStock) {
-            window.alert(`
-                An item in your cart is no longer in stock.
-                The item has now been removed from your cart.
-            `)
+
+            showNotification(
+                `An item in your cart is no longer in stock.
+                The item has now been removed from your cart.`,
+                "errorMessage"
+            )
             return
         }
 
         const changedPrices = await checkPricing()
         if (changedPrices) {
-            window.alert(`
-                The price of an item in the cart has changed.
-                The transaction has been halted,
-                and the updated price is now shown.
-            `)
+
+            showNotification(
+                `The price of an item in your cart has changed.
+                The updated price is now shown in your cart.`,
+                "errorMessage"
+            )
             return
         }
 
@@ -111,9 +115,15 @@ const Cart = (props) => {
 
         const itemNames = itemsInCart.map(item => item.name)
         const mailSent = await sendElectronicMail(loggedIn, itemNames)
-        console.log(mailSent.mailPreview)
+        
         setItemsInCart([])
-        console.log("Transaction successful.")
+        showNotification(
+            `Transaction successful.
+            You may preview the confirmation mail at:
+            ${mailSent.mailPreview}`,
+            "success",
+            10000
+        )
     }
 
     if (itemsInCart.length < 1) {

@@ -1,6 +1,7 @@
 html {
     background-color: black;
     color: deeppink;
+    box-sizing: border-box;
 }
 
 .App {
@@ -139,7 +140,7 @@ a:visited {
 .App-main {
     margin-top: 2vh;
     border-top: 1px solid darkmagenta;
-    height: 80vh;
+    max-height: 78vh;
 }
 
 @media screen and (max-height: 600px) {
@@ -237,4 +238,30 @@ button[type="submit"] {
 
 input:disabled {
     cursor: not-allowed;
+}
+
+.App-footer {
+    text-align: center;
+    position: sticky;
+    bottom: 0;
+    max-height: 5vh;
+    width: 100%;
+    visibility: collapse;
+    color: black;
+}
+
+.notification-empty {
+    visibility: collapse;
+}
+
+.notification-error-message {
+    background-color: tomato;
+    outline: 1px solid red;
+    visibility: visible;
+}
+
+.notification-message {
+    background-color: limegreen;
+    outline: 1px solid lime;
+    visibility: visible;
 }

@@ -6,11 +6,12 @@ const EditItemForm = (props) => {
     const {
         itemsForSale,
         setItemsForSale,
-        individualItem
+        individualItem,
+        showNotification
     } = props
-
+    //
     const {id} = useParams()
-
+    //
     const [newPrice, setNewPrice] = useState(
         individualItem.price
     )
@@ -30,6 +31,7 @@ const EditItemForm = (props) => {
                 : modifiedItem
         ))
         history.push("/my-items")
+        showNotification("Price successfully modified.")
     }
 
     return (

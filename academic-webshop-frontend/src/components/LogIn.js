@@ -4,7 +4,7 @@ import {setToken} from "../services/itemService"
 import {useHistory} from "react-router-dom"
 
 const LogIn = (props) => {
-    const {setLoggedIn} = props
+    const {setLoggedIn, showNotification} = props
     const history = useHistory()
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
@@ -17,19 +17,25 @@ const LogIn = (props) => {
                 password
             })
             if (!user) {
-                console.error(`The user ${userName} was not found.`)
+                showNotification(
+                    `The user ${userName} could not be found.`,
+                    "errorMessage"
+                )
             } else {
                 setLoggedIn(user)
                 setToken(user.token)
-                //show a notification of sorts here
                 window.localStorage.setItem(
                     "currentlyLoggedIn",
                     JSON.stringify(user)
                 )
                 history.push("/")
+                showNotification(`Welcome, ${user.userName}.`)
             }
         } catch (error) {
-            console.error("Unauthorized - incorrect credentials.")
+            showNotification(
+                "Incorrect log-in credentials.",
+                "errorMessage"
+            )
         }
     }
     return (

@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import {changePassword} from "../services/userService"
 
 const Account = (props) => {
-    const {userid} = props
+    const {userid, showNotification} = props
     const [oldPassword, setOldPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
     const [newPasswordAgain, setNewPasswordAgain] = useState("")
@@ -19,16 +19,21 @@ const Account = (props) => {
         //so i guess the old password really does not matter
         
         if (!newPassword) {
-            //show a notification instead of this error though
-            throw new Error("The password should not be empty")
+            showNotification(
+                "The password should not be empty.",
+                "errorMessage"
+            )
         } else {
             if (newPassword === newPasswordAgain) {
                 await changePassword(userid, {
                     password: newPassword
                 })
+                showNotification("Password successfully changed.")
             } else {
-                //also notification
-                throw new Error("The password does not match")
+                showNotification(
+                    "The passwords do not match.",
+                    "errorMessage"
+                )
             }
         }
     }

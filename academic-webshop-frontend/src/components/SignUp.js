@@ -2,7 +2,8 @@ import React, {useState} from "react"
 import {createNewUser} from "../services/userService"
 import {useHistory} from "react-router-dom"
 
-const SignUp = () => {
+const SignUp = (props) => {
+    const {showNotification} = props
     const history = useHistory()
     const [electronicMail, setElectronicMail] = useState("")
     const [userName, setUserName] = useState("")
@@ -12,8 +13,10 @@ const SignUp = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         if (password !== passwordAgain) {
-            //also add a proper notification here
-            console.error("Make sure the password input is the same.")
+            showNotification(
+                "The passwords inputs do not match.",
+                "errorMessage"
+            )
         } else {
             createNewUser({
                 electronicMail,
@@ -21,7 +24,11 @@ const SignUp = () => {
                 password
             })
             history.push("/login")
-            //add a notification of sorts here
+            showNotification(
+                `You have successfully signed up.
+                A nonexistent confirmation mail has been sent.
+                Make sure you check that out, or don't.`
+            )
         }
     }
 

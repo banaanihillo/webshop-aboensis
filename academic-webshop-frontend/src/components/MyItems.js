@@ -4,7 +4,12 @@ import AddItemForm from "./AddItemForm"
 import {Link} from "react-router-dom"
 
 const MyItems = (props) => {
-    const {userid, itemsForSale, setItemsForSale} = props
+    const {
+        userid,
+        itemsForSale,
+        setItemsForSale,
+        showNotification
+    } = props
 
     const [myItems, setMyItems] = useState({
         "Items for sale": [
@@ -51,9 +56,13 @@ const MyItems = (props) => {
                             Item: {item.name} <br />
                             Price: {item.price} <br />
                             {item.description} <br />
-                            <Link to={`/my-items/${item._id}`}>
-                                Edit
-                            </Link>
+                            {(key !== "Items for sale")
+                                ? null
+                                : <Link to={`/my-items/${item._id}`}>
+                                    Edit
+                                </Link>
+                            }
+                            
                         </li>
                     })}
                 </span>
@@ -72,6 +81,7 @@ const MyItems = (props) => {
                     toggleItemForm = {toggleItemForm}
                     itemsForSale = {itemsForSale}
                     setItemsForSale = {setItemsForSale}
+                    showNotification = {showNotification}
                 />
             }
             <ul className = "my-items-container">

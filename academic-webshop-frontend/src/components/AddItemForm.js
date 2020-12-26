@@ -2,14 +2,19 @@ import React, {useState} from "react"
 import {createNewItem} from "../services/itemService"
 
 const AddItemForm = (props) => {
-    const {toggleItemForm, itemsForSale, setItemsForSale} = props
+    const {
+        toggleItemForm,
+        itemsForSale,
+        setItemsForSale,
+        showNotification
+    } = props
     const [name, setName] = useState("")
     const [price, setPrice] = useState(0)
     const [description, setDescription] = useState("")
     
     const handleSubmit = async (event) => {
         event.preventDefault()
-        //and a notification
+
         const newItem = {
             name: name,
             price: price,
@@ -18,7 +23,9 @@ const AddItemForm = (props) => {
         const responseData = await createNewItem(newItem)
         const updatedItems = itemsForSale.concat(responseData)
         setItemsForSale(updatedItems)
-        //also perhaps close the form, or not
+        showNotification(
+            `Successfully added ${newItem.name}.`
+        )
         toggleItemForm(false)
     }
 

@@ -8,6 +8,7 @@ import Cart from "./components/Cart"
 import Search from "./components/Search"
 import Account from "./components/Account"
 import EditItemForm from "./components/EditItemForm"
+import Notification from "./components/Notification"
 import './App.css';
 import {Switch, Route, Link, useRouteMatch} from "react-router-dom"
 import {
@@ -23,6 +24,8 @@ const App = () => {
     })
     const [itemsInCart, setItemsInCart] = useState([])
     const [filteredItems, setFilteredItems] = useState(null)
+    const [message, setMessage] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
     
     useEffect(() => {
         getItemsForSale()
@@ -51,6 +54,27 @@ const App = () => {
             return (item._id === itemMatch.params.id)
         })
         : null
+    
+    const showNotification = (
+        notification,
+        typeOfNotification="message",
+        timeoutDuration=5000
+    ) => {
+        console.log(typeOfNotification)
+        if (typeOfNotification === "errorMessage") {
+            setErrorMessage(notification)
+            setTimeout(() => {
+                setErrorMessage(null)
+            },
+            timeoutDuration)
+        } else {
+            setMessage(notification)
+            setTimeout(() => {
+                setMessage(null)
+            },
+            timeoutDuration)
+        }
+    }
 
     const ConditionalLinks = () => {
         if (loggedIn._id) {
@@ -69,7 +93,7 @@ const App = () => {
                             _id: null
                         })
                         setToken(null)
-                        //and a notification, perhaps
+                        showNotification("You have logged out.")
                     }}>
                         Log out
                     </Link>
@@ -116,6 +140,7 @@ const App = () => {
                     <Route path="/account">
                         <Account
                             userid = {loggedIn._id}
+                            showNotification = {showNotification}
                         />
                     </Route>
                     <Route path="/my-items/:id">
@@ -123,6 +148,7 @@ const App = () => {
                             itemsForSale={itemsForSale}
                             setItemsForSale={setItemsForSale}
                             individualItem={individualItem}
+                            showNotification = {showNotification}
                         />
                     </Route>
                     <Route path="/my-items">
@@ -130,6 +156,7 @@ const App = () => {
                             userid = {loggedIn._id}
                             itemsForSale = {itemsForSale}
                             setItemsForSale = {setItemsForSale}
+                            showNotification = {showNotification}
                         />
                     </Route>
                     <Route path="/shop/cart">
@@ -139,6 +166,7 @@ const App = () => {
                             loggedIn = {loggedIn}
                             setItemsForSale = {setItemsForSale}
                             itemsForSale = {itemsForSale}
+                            showNotification = {showNotification}
                         />
                     </Route>
                     <Route path="/shop">
@@ -149,13 +177,19 @@ const App = () => {
                             itemsInCart = {itemsInCart}
                             setItemsInCart = {setItemsInCart}
                             filteredItems = {filteredItems}
+                            showNotification = {showNotification}
                         />
                     </Route>
                     <Route path="/login">
-                        <LogIn setLoggedIn = {setLoggedIn} />
+                        <LogIn
+                            setLoggedIn = {setLoggedIn}
+                            showNotification = {showNotification}
+                        />
                     </Route>
                     <Route path="/signup">
-                        <SignUp />
+                        <SignUp
+                            showNotification = {showNotification}
+                        />
                     </Route>
                     <Route path="/">
                         <LandingPage
@@ -169,6 +203,13 @@ const App = () => {
                     </Route>
                 </Switch>
             </main>
+
+            <footer className = "App-footer">
+                <Notification
+                    message = {message}
+                    errorMessage = {errorMessage}
+                />
+            </footer>
         </div>
 
     );
