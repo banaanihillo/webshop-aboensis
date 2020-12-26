@@ -1,5 +1,5 @@
 import axios from "axios"
-const address = "http://localhost:3001/electronic-mail"
+const address = "/electronic-mail"
 
 const sendElectronicMail = async (loggedIn, itemNames) => {
     const requestBody = {
@@ -7,7 +7,7 @@ const sendElectronicMail = async (loggedIn, itemNames) => {
         itemNames: itemNames
     }
     const response = await axios.post(address, requestBody)
-    console.log(response.data)
+    
     return response.data
 }
 

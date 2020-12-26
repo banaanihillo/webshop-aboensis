@@ -1,5 +1,5 @@
 import axios from "axios"
-const address = "http://localhost:3001/login"
+const address = "/login"
 
 const logIn = async (logInCredentials) => {
     const response = await axios.post(address, logInCredentials)

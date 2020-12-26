@@ -1,5 +1,5 @@
 import axios from "axios"
-const address = "http://localhost:3001/items"
+const address = "/items"
 
 let token = ""
 const setToken = (newToken) => {

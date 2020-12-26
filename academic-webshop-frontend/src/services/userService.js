@@ -1,5 +1,5 @@
 import axios from "axios"
-const address = "http://localhost:3001/users"
+const address = "/users"
 
 const createNewUser = async (newUser) => {
 
