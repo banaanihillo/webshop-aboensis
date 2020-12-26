@@ -1,5 +1,5 @@
 import axios from "axios"
-const address = "/login"
+const address = "/backend/log-in"
 
 const logIn = async (logInCredentials) => {
     const response = await axios.post(address, logInCredentials)

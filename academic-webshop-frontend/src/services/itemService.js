@@ -1,5 +1,5 @@
 import axios from "axios"
-const address = "/items"
+const address = "/backend/items"
 
 let token = ""
 const setToken = (newToken) => {

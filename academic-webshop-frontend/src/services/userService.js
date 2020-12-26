@@ -1,5 +1,5 @@
 import axios from "axios"
-const address = "/users"
+const address = "/backend/users"
 
 const createNewUser = async (newUser) => {
 

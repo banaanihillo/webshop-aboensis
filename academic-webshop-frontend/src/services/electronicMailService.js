@@ -1,5 +1,5 @@
 import axios from "axios"
-const address = "/electronic-mail"
+const address = "/backend/electronic-mail"
 
 const sendElectronicMail = async (loggedIn, itemNames) => {
     const requestBody = {
