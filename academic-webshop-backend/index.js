@@ -25,10 +25,10 @@ mongoose
         console.error(`Could not connect to Mongo: ${error}`)
     })
 
-app.use("/items", itemRouter)
-app.use("/users", userRouter)
-app.use("/login", loginRouter)
-app.use("/electronic-mail", electronicMailRouter)
+app.use("/backend/items", itemRouter)
+app.use("/backend/users", userRouter)
+app.use("/backend/log-in", loginRouter)
+app.use("/backend/electronic-mail", electronicMailRouter)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
